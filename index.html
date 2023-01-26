@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoliDates</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav class="text-center border">
+        <h1>Steam Shop</h1>
+        <q>Project Challenge</q>
+      </nav>
+
+      <div class="search-box">
+          <input class="search-input" type="text" name="q" />
+          <svg
+            class="google-mic"
+            focusable="false"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+      </div>
+      <div class="btn-group">
+          <button class="button" type="submit">Google Search</button>
+          <button class="button">I'm Feeling Lucky</button>
+      </div>
+
+      <nav>
+          <a class="nav-link" href="#">Gmail</a>
+          <a class="nav-link" href="#">Images</a>
+          <a class="nav-icon">
+            <svg class="gb_0e" focusable="false" viewBox="0 0 24 24">
+              <path
+                d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"
+              ></path>
+            </svg>
+          </a>
+          <a class="nav-button" href="#">Sign in CoderSchool</a>
+        </nav>
+
+    </header>
+
+    <main>
+      <section id="get-all-games-list" class="text-center container">
+        <div class="row flex">
+          <div class="col-6"></div>
+        </div>
+
+        <div class="col-6">
+          <div class="card-wrapper">
+            <div class="card-border"></div>
+            <div id="all-games-list" class="flex flex-column card card-shadow">
+              <h3>Get all games</h3>
+              <div>
+                <button id="get-all-games-btn" class="btn top-right-btn">
+                  Get all games
+                </button>
+              </div>
+              <ul>
+                <li>
+                  <div class="bullet">1</div>
+                  <div class="li-wrapper">
+                    <div class="li-title">Game 1</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="bullet">2</div>
+                  <div class="li-wrapper">
+                    <div class="li-title">Game 2</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card-wrapper">
+            <div class="card-border"></div>
+            <div id="genres-list" class="flex flex-column card card-shadow">
+              <h3>Get genres</h3>
+              <div>
+                <button id="get-genres-btn" class="btn top-right-btn">
+                  Get genres list
+                </button>
+              </div>
+              <ul>
+                <li>
+                  <div class="bullet">1</div>
+                  <div class="li-wrapper">
+                    <div class="li-title">Genre 1</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
