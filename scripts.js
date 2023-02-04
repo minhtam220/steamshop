@@ -1,8 +1,46 @@
-const BASE_URL = `https://steam-api-dot-cs-platform-306304.et.r.appspot.com`;
+[].slice
+  .call(document.querySelectorAll(".dropdown .nav-link"))
+  .forEach(function (el) {
+    el.addEventListener("click", onClick, false);
+  });
 
-//GAMES LIST
-async function getAllGames() {
-  let BASE_URL_GAMES = BASE_URL + `/games`;
+function onClick(e) {
+  e.preventDefault();
+  var el = this.parentNode;
+  console.log(el);
+  el.classList.contains("show-submenu") ? hideSubMenu(el) : showSubMenu(el);
+}
+
+function showSubMenu(el) {
+  el.classList.add("show-submenu");
+  document.addEventListener("click", function onDocClick(e) {
+    e.preventDefault();
+    if (el.contains(e.target)) {
+      return;
+    }
+    document.removeEventListener("click", onDocClick);
+    hideSubMenu(el);
+  });
+}
+
+function hideSubMenu(el) {
+  el.classList.remove("show-submenu");
+}
+
+const BASE_URL = `https://steam-api-dot-cs-platform-306304.et.r.appspot.com`;
+let genre
+let search
+
+//SEARCH GAMES
+async function getGames() {
+  let BASE_URL_GAMES;
+
+  if (genre === undefined) {
+    BASE_URL_GAMES = BASE_URL + `/games/?q=${q}`;
+  } else {
+    BASE_URL_GAMES = BASE_URL + `/games/?genres=${genre}`;
+  }
+  console.log(BASE_URL_GAMES);
 
   try {
     const response = await fetch(`${BASE_URL_GAMES}`);
@@ -17,40 +55,48 @@ async function getAllGames() {
   }
 }
 
-const renderAllGames = async () => {
+const renderGames = async (genre) => {
   let games = [];
+  search = document.getElementById("search-query").value;
 
   try {
-    // Get countries from the API
-    games = await getAllGames();
+    // Get games from the API
+    games = await getGames(search, genre);
+
     // ' len is zero
     if (!games.length) {
       console.log("No games.");
       return;
     }
 
-    const ulAllGamesList = document.getElementById("all-games-list")
-      .children[2];
+    const allGamesList = document.getElementById("all_games_list");
 
-    ulAllGamesList.innerHTML = "";
+    allGamesList.innerHTML = "";
 
     games.forEach((game, index) => {
-      //Create new `li` for each element
-      const liAllGamesList = document.createElement("li");
-      liAllGamesList.innerHTML = `<div class="bullet">${index + 1}</div>
-      <div class="li-wrapper">
-        <div class="li-title">${game.name}</div>
-      </div>`;
-      ulAllGamesList.appendChild(liAllGamesList);
+      //Create new `Game Wrapper` for each element
+      const divGameWrapper = document.createElement("div");
+      divGameWrapper.innerHTML = `
+      <div class="game_wrapper">
+          <img
+            src="${game.header_image}"
+            alt=""
+          />
+          <div class="game_info">
+            <div class="game_name">${game.name}</div>
+            <div class="game_price">USD ${game.price}</div>
+            <div class="game_genres">${game.genres}</div>
+          </div>
+        </div>`;
+
+      allGamesList.appendChild(divGameWrapper);
+
+      return;
     });
   } catch (err) {
     console.log("err", err);
   }
 };
-
-document.getElementById("get-all-games-btn").addEventListener("click", () => {
-  renderAllGames();
-});
 
 //GENRES LIST
 async function getGenres() {
@@ -69,7 +115,7 @@ async function getGenres() {
   }
 }
 
-const renderGenres = async () => {
+const init = async () => {
   let genres = [];
 
   try {
@@ -81,27 +127,27 @@ const renderGenres = async () => {
       return;
     }
 
-    const ulGenresList = document.getElementById("genres-list").children[2];
+    const allGenresList = document.getElementById("all_genres_list");
 
-    ulGenresList.innerHTML = "";
+    allGenresList.innerHTML = "";
 
     genres.forEach((genre, index) => {
-      //Create new `li` for each element
-      const liGenresList = document.createElement("li");
-      liGenresList.innerHTML = `<div class="bullet">${index + 1}</div>
-      <div class="li-wrapper">
-        <div class="li-title">${genre.name}</div>
-      </div>`;
-      ulGenresList.appendChild(liGenresList);
+      //Create new `Game Wrapper` for each element
+      const divGenres = document.createElement("div");
+      divGenres.innerHTML = `
+      <button
+      id="list-genres"
+      class="btn"
+      onclick={renderGames('${genre.name}')}>
+      ${genre.name}
+    </button>`;
+      allGenresList.appendChild(divGenres);
     });
+    console.log("loaded");
   } catch (err) {
     console.log("err", err);
   }
 };
-
-document.getElementById("get-genres-btn").addEventListener("click", () => {
-  renderGenres();
-});
 
 //TAGS LIST
 async function getTags() {
@@ -150,10 +196,6 @@ const renderTags = async () => {
   }
 };
 
-document.getElementById("get-tags-btn").addEventListener("click", () => {
-  renderTags();
-});
-
 //FEATURES LIST
 async function getFeatures() {
   let BASE_URL_FEATURES = BASE_URL + `/features`;
@@ -201,10 +243,6 @@ const renderFeatures = async () => {
   }
 };
 
-document.getElementById("get-features-btn").addEventListener("click", () => {
-  renderFeatures();
-});
-
 //SINGLE
 async function getSingleGame() {
   let BASE_URL_SINGLE_GAME = BASE_URL + `/single-game/20`;
@@ -246,7 +284,3 @@ const renderSingleGame = async () => {
     console.log("err", err);
   }
 };
-
-document.getElementById("get-single-game-btn").addEventListener("click", () => {
-  renderSingleGame();
-});

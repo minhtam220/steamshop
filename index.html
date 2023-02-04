@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HoliDates</title>
+    <title>Tam's Steamshop</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,100 +15,136 @@
   </head>
 
   <body>
-    <header>
-      <nav class="text-center border">
-        <h1>Steam Shop</h1>
-        <q>Project Challenge</q>
-      </nav>
-
-      <div class="search-box">
-          <input class="search-input" type="text" name="q" />
-          <svg
-            class="google-mic"
-            focusable="false"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-      </div>
-      <div class="btn-group">
-          <button class="button" type="submit">Google Search</button>
-          <button class="button">I'm Feeling Lucky</button>
+    <div class="header">
+      <div class="logo">
+        <a href="index.html" class="href"
+          ><img
+            src="https://storfe.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016"
+            alt=""
+        /></a>
       </div>
 
-      <nav>
-          <a class="nav-link" href="#">Gmail</a>
-          <a class="nav-link" href="#">Images</a>
-          <a class="nav-icon">
-            <svg class="gb_0e" focusable="false" viewBox="0 0 24 24">
-              <path
-                d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"
-              ></path>
-            </svg>
-          </a>
-          <a class="nav-button" href="#">Sign in CoderSchool</a>
+      <div class="navigation">
+        <nav role="navigation" class="nav">
+          <ul class="nav-items">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link"><span>STORE</span></a>
+              <nav class="submenu">
+                <ul class="submenu-items">
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">HOME</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link"
+                      >DISCOVERY QUEUE</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">WISHLIST</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">POINTS SHOP</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">NEWS</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">STATS</a>
+                  </li>
+                </ul>
+              </nav>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link"><span>COMMUNITY</span></a>
+              <nav class="submenu">
+                <ul class="submenu-items">
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">HOME</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">DISCUSSIONS</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">WORKSHOP</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">MARKET</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">BROADCASTS</a>
+                  </li>
+                </ul>
+              </nav>
+            </li>
+
+            <li class="nav-item">
+              <a href="index.html" class="nav-link"><span>ABOUT</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="index.html" class="nav-link"><span>SUPPORT</span></a>
+            </li>
+          </ul>
         </nav>
+      </div>
 
-    </header>
+      <div class="search-container">
+          <input id="search-query" type="text" placeholder="Search.." name="search" />
+          <button id="search-button" class="btn" onclick={renderGames()}>Search</button>
+      </div>
+    </div>
 
-    <main>
-      <section id="get-all-games-list" class="text-center container">
-        <div class="row flex">
-          <div class="col-6"></div>
-        </div>
+    <div class="content">
+      <div id="all_genres_list">
+          <button
+          id="list-all"
+          class="btn"
+          onclick="init()"
+        >
+          all
+        </button>
+        <div class="genres_wrapper">
+            <button
+            id="list-action"
+            class="btn"
+            onclick="renderGames('action')"
+          >
+            action
+          </button>
+        </div>        
+      </div>
 
-        <div class="col-6">
-          <div class="card-wrapper">
-            <div class="card-border"></div>
-            <div id="all-games-list" class="flex flex-column card card-shadow">
-              <h3>Get all games</h3>
-              <div>
-                <button id="get-all-games-btn" class="btn top-right-btn">
-                  Get all games
-                </button>
-              </div>
-              <ul>
-                <li>
-                  <div class="bullet">1</div>
-                  <div class="li-wrapper">
-                    <div class="li-title">Game 1</div>
-                  </div>
-                </li>
-                <li>
-                  <div class="bullet">2</div>
-                  <div class="li-wrapper">
-                    <div class="li-title">Game 2</div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+      <div id="all_games_list">
+        <div class="game_wrapper">
+          <img
+            src="https://steamcdn-a.akamaihd.net/steam/apps/72850/header.jpg?t=1493767797"
+            alt=""
+          />
+          <div class="game_info">
+            <div class="game_name">The Elder Scrolls V: Skyrim</div>
+            <div class="game_price">USD 9.99</div>
+            <div class="game_genres">action</div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="col-6">
-          <div class="card-wrapper">
-            <div class="card-border"></div>
-            <div id="genres-list" class="flex flex-column card card-shadow">
-              <h3>Get genres</h3>
-              <div>
-                <button id="get-genres-btn" class="btn top-right-btn">
-                  Get genres list
-                </button>
-              </div>
-              <ul>
-                <li>
-                  <div class="bullet">1</div>
-                  <div class="li-wrapper">
-                    <div class="li-title">Genre 1</div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+    <script src="./scripts.js"></script>
 
-      </section>
-    </main>
-
-    <script src="./script.js"></script>
+    <div class="footer">
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+      accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+      illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+      explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+      odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+      voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
+      quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+      eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+      voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
+      corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+      Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
+      nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+      nulla pariatur?"
+    </div>
   </body>
 </html>
