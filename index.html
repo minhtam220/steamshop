@@ -14,7 +14,7 @@
     />
   </head>
 
-  <body>
+  <body onload="init()">
     <div class="header">
       <div class="logo">
         <a href="index.html" class="href"
@@ -89,31 +89,32 @@
       </div>
 
       <div class="search-container">
-          <input id="search-query" type="text" placeholder="Search.." name="search" />
-          <button id="search-button" class="btn" onclick={renderGames()}>Search</button>
+          <input id="search_query" type="text" placeholder="Search.." name="search" />
+          <button id="search-button" class="btn" onclick="selectSearch()">Search</button>
       </div>
     </div>
 
     <div class="content">
-      <div id="all_genres_list">
-          <button
-          id="list-all"
-          class="btn"
-          onclick="init()"
-        >
-          all
-        </button>
-        <div class="genres_wrapper">
-            <button
-            id="list-action"
-            class="btn"
-            onclick="renderGames('action')"
-          >
+      <div class="left">
+        <div id="genres_list">
+          Search by genres
+          <div class="genres_wrapper">
+            <button id="select_genre" class="btn" onclick="selectGenre('action')">
             action
-          </button>
-        </div>        
+            </button>
+          </div>
+        </div>
+            
+        <div id="tags_list">
+          Search by tags
+          <div class="tags_wrapper">
+            <button id="select_tag" class="btn" onclick="selectTag('action')">
+            action
+            </button>
+          </div>
+        </div>
       </div>
-
+      
       <div id="all_games_list">
         <div class="game_wrapper">
           <img
@@ -127,24 +128,14 @@
           </div>
         </div>
       </div>
+      
     </div>
 
     <script src="./scripts.js"></script>
 
     <div class="footer">
       "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-      accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-      illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-      explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-      odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-      voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-      quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
-      eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-      voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
-      corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-      Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
-      nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-      nulla pariatur?"
+      ?"
     </div>
   </body>
 </html>
