@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tam's Steamshop</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body onload="init()">
+    <div class="header">
+      <div class="logo">
+        <a href="index.html" class="href"
+          ><img
+            src="https://storfe.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016"
+            alt=""
+        /></a>
+      </div>
+
+      <div class="navigation">
+        <nav role="navigation" class="nav">
+          <ul class="nav-items">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link"><span>STORE</span></a>
+              <nav class="submenu">
+                <ul class="submenu-items">
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">HOME</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link"
+                      >DISCOVERY QUEUE</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">WISHLIST</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">POINTS SHOP</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">NEWS</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">STATS</a>
+                  </li>
+                </ul>
+              </nav>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link"><span>COMMUNITY</span></a>
+              <nav class="submenu">
+                <ul class="submenu-items">
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">HOME</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">DISCUSSIONS</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">WORKSHOP</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">MARKET</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">BROADCASTS</a>
+                  </li>
+                </ul>
+              </nav>
+            </li>
+
+            <li class="nav-item">
+              <a href="index.html" class="nav-link"><span>ABOUT</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="index.html" class="nav-link"><span>SUPPORT</span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="search-container">
+          
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <div id="genres_list">
+          Search by genres
+          <div class="genres_wrapper">
+            <button id="select_genre" class="btn" onclick="selectGenre('action')">
+            action
+            </button>
+          </div>
+        </div>
+            
+        <div id="tags_list">
+          Search by tags
+          <div class="tags_wrapper">
+            <button id="select_tag" class="btn" onclick="selectTag('action')">
+            action
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="all_games_list">
+        <div class="game_wrapper">
+          <img
+            src="https://steamcdn-a.akamaihd.net/steam/apps/72850/header.jpg?t=1493767797"
+            alt=""
+          />
+          <div class="game_info">
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <script src="./scripts.js"></script>
+
+    <div class="footer">
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+      ?"
+    </div>
+  </body>
+</html>
