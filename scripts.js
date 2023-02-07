@@ -1,4 +1,4 @@
-//CODES FOR NAVIGATION BAR
+//CODES FOR NAVIGATION BAR NEW
 [].slice
   .call(document.querySelectorAll(".dropdown .nav-link"))
   .forEach(function (el) {
