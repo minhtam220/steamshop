@@ -1,79 +1,185 @@
-const BASE_URL = `https://steam-api-dot-cs-platform-306304.et.r.appspot.com`;
+//CODES FOR NAVIGATION BAR
+[].slice
+  .call(document.querySelectorAll(".dropdown .nav-link"))
+  .forEach(function (el) {
+    el.addEventListener("click", onClick, false);
+  });
 
-//GAMES LIST
-async function getAllGames() {
-  let BASE_URL_GAMES = BASE_URL + `/games`;
+function onClick(e) {
+  e.preventDefault();
+  var el = this.parentNode;
+  console.log(el);
+  el.classList.contains("show-submenu") ? hideSubMenu(el) : showSubMenu(el);
+}
+
+function showSubMenu(el) {
+  el.classList.add("show-submenu");
+  document.addEventListener("click", function onDocClick(e) {
+    e.preventDefault();
+    if (el.contains(e.target)) {
+      return;
+    }
+    document.removeEventListener("click", onDocClick);
+    hideSubMenu(el);
+  });
+}
+
+function hideSubMenu(el) {
+  el.classList.remove("show-submenu");
+}
+
+//MAIN CODES
+//declare variables
+const BASE_URL = `https://steam-api-dot-cs-platform-306304.et.r.appspot.com`;
+let genresList;
+let genreSelected = "";
+
+let tagsList;
+let tagSelected = "";
+
+let search = "";
+
+let gamesList;
+let gameSelected;
+
+//fetch data from the URL
+async function fetchData(url) {
+
+  console.log("fetchData " + url);
 
   try {
-    const response = await fetch(`${BASE_URL_GAMES}`);
+    const response = await fetch(`${url}`);
     if (response.ok) {
       const data = await response.json();
-      const games = data["data"];
-      return games;
+      const result = data["data"];
+      return result;
     }
   } catch (error) {
     console.log(error);
     return [];
   }
+
 }
 
-const renderAllGames = async () => {
-  let games = [];
+//search for games
+async function searchGames() {
+
+  let url;
+  
+  if (genreSelected !== "" && search !== "" && tagSelected !== ""){
+    url = BASE_URL + `/games/?q=${search}&genres=${genreSelected}&steamspy_tags=${tagSelected}`;
+  } else if (genreSelected === ""){
+    url = BASE_URL + `/games/?q=${search}&steamspy_tags=${tagSelected}`;
+  } else if (tagSelected === ""){
+    url = BASE_URL + `/games/?q=${search}&genres=${genreSelected}`;
+  } else if (search === ""){
+    url = BASE_URL + `/games/?genres=${genreSelected}&steamspy_tags=${tagSelected}`;
+  } else {
+    url = BASE_URL + `/games`;
+  };
+
+  console.log("searchGames " + url);
+
+  let games = fetchData(url);
+
+  return games;
+
+}
+
+//render games 
+const renderGames = async () => {
+   
+  games = [];
+
+  console.log("renderGames"+ search);
 
   try {
-    // Get countries from the API
-    games = await getAllGames();
+    // Search games from the API
+    games = await searchGames();
+
     // ' len is zero
     if (!games.length) {
       console.log("No games.");
       return;
     }
 
-    const ulAllGamesList = document.getElementById("all-games-list")
-      .children[2];
+    const allGamesList = document.getElementById("all_games_list");
 
-    ulAllGamesList.innerHTML = "";
+    allGamesList.innerHTML = "";
 
     games.forEach((game, index) => {
-      //Create new `li` for each element
-      const liAllGamesList = document.createElement("li");
-      liAllGamesList.innerHTML = `<div class="bullet">${index + 1}</div>
-      <div class="li-wrapper">
-        <div class="li-title">${game.name}</div>
-      </div>`;
-      ulAllGamesList.appendChild(liAllGamesList);
+      //Create new `Game Wrapper` for each element
+      const divGameWrapper = document.createElement("div");
+      divGameWrapper.innerHTML = `
+      <div class="game_wrapper">
+          <img
+            src="${game.header_image}"
+            alt=""
+          />
+          <div class="game_info">
+            <div class="game_name">${game.name}</div>
+            <div class="game_price">USD ${game.price}</div>
+            <div class="game_genres">${game.genres}</div>
+          </div>
+        </div>`;
+
+      allGamesList.appendChild(divGameWrapper);
+
     });
   } catch (err) {
     console.log("err", err);
   }
 };
 
-document.getElementById("get-all-games-btn").addEventListener("click", () => {
-  renderAllGames();
-});
+//select genre
+function selectGenre (genre) {
+  
+  genreSelected = genre;
+  renderGames();
+  
+};
 
-//GENRES LIST
+//select Tag
+function selectTag (tag) {
+  
+  tagSelected = tag;
+  renderGames();
+  
+};
+
+//select search
+function selectSearch () {
+  search = document.getElementById("search_query").value;
+  genreSelected = "";
+  renderGames();  
+};
+
+//get the genres list
 async function getGenres() {
-  let BASE_URL_GENRES = BASE_URL + `/genres`;
+  let url = BASE_URL + `/genres`;
 
-  try {
-    const response = await fetch(`${BASE_URL_GENRES}`);
-    if (response.ok) {
-      const data = await response.json();
-      const genres = data["data"];
-      return genres;
-    }
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
+  let genres = fetchData(url);
+
+  return genres;
 }
 
-const renderGenres = async () => {
+//get the tags list
+async function getTags() {
+  let url = BASE_URL + `/steamspy-tags`;
+
+  let tags = fetchData(url);
+
+  return tags;
+}
+
+
+const init = async () => {
   let genres = [];
+  let tags = [];
 
   try {
-    // Get countries from the API
+
+    // Get genres list from the API
     genres = await getGenres();
     // ' len is zero
     if (!genres.length) {
@@ -81,172 +187,54 @@ const renderGenres = async () => {
       return;
     }
 
-    const ulGenresList = document.getElementById("genres-list").children[2];
+    const allGenresList = document.getElementById("genres_list");
 
-    ulGenresList.innerHTML = "";
+    allGenresList.innerHTML = "Search by genres";
 
     genres.forEach((genre, index) => {
-      //Create new `li` for each element
-      const liGenresList = document.createElement("li");
-      liGenresList.innerHTML = `<div class="bullet">${index + 1}</div>
-      <div class="li-wrapper">
-        <div class="li-title">${genre.name}</div>
-      </div>`;
-      ulGenresList.appendChild(liGenresList);
+      //Create new `Game Wrapper` for each element
+      const divGenres = document.createElement("div");
+      divGenres.innerHTML = `
+      <button
+      id="select_genre"
+      class="btn"
+      onclick={selectGenre('${genre.name}')}>
+      ${genre.name}
+    </button>`;
+      allGenresList.appendChild(divGenres);
     });
-  } catch (err) {
-    console.log("err", err);
-  }
-};
 
-document.getElementById("get-genres-btn").addEventListener("click", () => {
-  renderGenres();
-});
-
-//TAGS LIST
-async function getTags() {
-  let BASE_URL_TAGS = BASE_URL + `/tags`;
-
-  try {
-    const response = await fetch(`${BASE_URL_TAGS}`);
-    if (response.ok) {
-      const data = await response.json();
-      const tags = data["data"];
-      return tags;
-    }
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-}
-
-const renderTags = async () => {
-  let tags = [];
-
-  try {
-    // Get countries from the API
-    tags = await getGenres();
+    // Get tags list from the API
+    tags = await getTags();
     // ' len is zero
     if (!tags.length) {
       console.log("No tags.");
       return;
     }
 
-    const ulTagsList = document.getElementById("tags-list").children[2];
+    const allTagsList = document.getElementById("tags_list");
 
-    ulTagsList.innerHTML = "";
+    allTagsList.innerHTML = "Search by tags";
 
     tags.forEach((tag, index) => {
-      //Create new `li` for each element
-      const liTagsList = document.createElement("li");
-      liTagsList.innerHTML = `<div class="bullet">${index + 1}</div>
-      <div class="li-wrapper">
-        <div class="li-title">${tag.name}</div>
-      </div>`;
-      ulTagsList.appendChild(liTagsList);
+      //Create new `Tag Wrapper` for each element
+      const divTags = document.createElement("div");
+      divTags.innerHTML = `
+      <button
+      id="select_tag"
+      class="btn"
+      onclick={selectTag('${tag.name}')}>
+      ${tag.name}
+    </button>`;
+      allTagsList.appendChild(divTags);
     });
+
+    renderGames();
+
+    console.log("loaded");
   } catch (err) {
     console.log("err", err);
   }
 };
 
-document.getElementById("get-tags-btn").addEventListener("click", () => {
-  renderTags();
-});
 
-//FEATURES LIST
-async function getFeatures() {
-  let BASE_URL_FEATURES = BASE_URL + `/features`;
-
-  try {
-    const response = await fetch(`${BASE_URL_FEATURES}`);
-    if (response.ok) {
-      const data = await response.json();
-      const features = data["data"];
-      return features;
-    }
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-}
-
-const renderFeatures = async () => {
-  let features = [];
-
-  try {
-    // Get countries from the API
-    features = await getFeatures();
-    // ' len is zero
-    if (!features.length) {
-      console.log("No features.");
-      return;
-    }
-
-    const ulFeaturesList = document.getElementById("features-list").children[2];
-
-    ulFeaturesList.innerHTML = "";
-
-    features.forEach((feature, index) => {
-      //Create new `li` for each element
-      const liFeaturesList = document.createElement("li");
-      liFeaturesList.innerHTML = `<div class="bullet">${index + 1}</div>
-      <div class="li-wrapper">
-        <div class="li-title">${feature.name}</div>
-      </div>`;
-      ulFeaturesList.appendChild(liFeaturesList);
-    });
-  } catch (err) {
-    console.log("err", err);
-  }
-};
-
-document.getElementById("get-features-btn").addEventListener("click", () => {
-  renderFeatures();
-});
-
-//SINGLE
-async function getSingleGame() {
-  let BASE_URL_SINGLE_GAME = BASE_URL + `/single-game/20`;
-
-  try {
-    const response = await fetch(`${BASE_URL_SINGLE_GAME}`);
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      const single = data["data"];
-      console.log(single);
-      return single;
-    }
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-}
-
-const renderSingleGame = async () => {
-  let single;
-
-  try {
-    // Get countries from the API
-    single = await getSingleGame();
-
-    const ulSingleList = document.getElementById("single-game").children[2];
-
-    ulSingleList.innerHTML = "";
-
-    //Create new `li` for each element
-    const liSingleList = document.createElement("li");
-    liSingleList.innerHTML = `<div class="bullet">1</div>
-      <div class="li-wrapper">
-        <div class="li-title">${single.name}</div>
-      </div>`;
-    ulSingleList.appendChild(liSingleList);
-  } catch (err) {
-    console.log("err", err);
-  }
-};
-
-document.getElementById("get-single-game-btn").addEventListener("click", () => {
-  renderSingleGame();
-});

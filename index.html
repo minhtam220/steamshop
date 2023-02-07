@@ -2,76 +2,140 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Tam's Portfolio</title>
+    <title>Tam's Steamshop</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="container">
-      <div class="card-wrapper">
-        <div id="card">
-          <img
-            class="avatar"
-            src="https://ca.slack-edge.com/TD720R602-UHF348SLD-b5d2ec5a3bab-512"
-          />
 
-          <div class="name">TAM NGUYEN</div>
+  <body onload="init()">
+    <div class="header">
+      <div class="logo">
+        <a href="index.html" class="href"
+          ><img
+            src="https://storfe.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016"
+            alt=""
+        /></a>
+      </div>
 
-          <div class="quotes">
-            "Whether you think you can or think you can't, you're right."
+      <div class="navigation">
+        <nav role="navigation" class="nav">
+          <ul class="nav-items">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link"><span>STORE</span></a>
+              <nav class="submenu">
+                <ul class="submenu-items">
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">HOME</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link"
+                      >DISCOVERY QUEUE</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">WISHLIST</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">POINTS SHOP</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">NEWS</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">STATS</a>
+                  </li>
+                </ul>
+              </nav>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link"><span>COMMUNITY</span></a>
+              <nav class="submenu">
+                <ul class="submenu-items">
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">HOME</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">DISCUSSIONS</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">WORKSHOP</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">MARKET</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="index.html" class="submenu-link">BROADCASTS</a>
+                  </li>
+                </ul>
+              </nav>
+            </li>
+
+            <li class="nav-item">
+              <a href="index.html" class="nav-link"><span>ABOUT</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="index.html" class="nav-link"><span>SUPPORT</span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="search-container">
+          <input id="search_query" type="text" placeholder="Search.." name="search" />
+          <button id="search-button" class="btn" onclick="selectSearch()">Search</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <div id="genres_list">
+          Search by genres
+          <div class="genres_wrapper">
+            <button id="select_genre" class="btn" onclick="selectGenre('action')">
+            action
+            </button>
           </div>
-
-          <div class="source">
-            Henry Ford
-          </div>
-
-          <div class="detail">
-            <ul>
-              <li>
-                <img
-                  class="detail-icon"
-                  src="https://cdn-icons-png.flaticon.com/512/562/562678.png"
-                />
-                Bún bò, Bún chả
-              </li>
-              <li>
-                <img
-                  class="detail-icon"
-                  src="https://cdn-icons-png.flaticon.com/512/1179/1179120.png"
-                />
-                Forrest Gump, Fight Club
-              </li>
-              <li>
-                <img
-                  class="detail-icon"
-                  src="https://cdn-icons-png.flaticon.com/512/3269/3269817.png"
-                />
-                English, French
-              </li>
-            </ul>
-          </div>
-
-          <hr />
-
-          <div class="social">
-            <a href="https://github.com/minhtam220">
-              <img
-                class="social-icon"
-                src="https://cdn-icons-png.flaticon.com/512/3291/3291695.png"
-                target="blank"
-              />
-            </a>
-            <a href="https://www.linkedin.com/in/minhtam220/">
-              <img
-                class="social-icon"
-                src="https://cdn-icons-png.flaticon.com/512/3536/3536569.png"
-                target="blank"
-              />
-            </a>
+        </div>
+            
+        <div id="tags_list">
+          Search by tags
+          <div class="tags_wrapper">
+            <button id="select_tag" class="btn" onclick="selectTag('action')">
+            action
+            </button>
           </div>
         </div>
       </div>
+      
+      <div id="all_games_list">
+        <div class="game_wrapper">
+          <img
+            src="https://steamcdn-a.akamaihd.net/steam/apps/72850/header.jpg?t=1493767797"
+            alt=""
+          />
+          <div class="game_info">
+            <div class="game_name">The Elder Scrolls V: Skyrim</div>
+            <div class="game_price">USD 9.99</div>
+            <div class="game_genres">action</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <script src="./scripts.js"></script>
+
+    <div class="footer">
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+      ?"
     </div>
   </body>
 </html>
