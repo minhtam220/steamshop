@@ -1,66 +1,21 @@
-The Command Line Murder
-========================
+User Stories
 
-    .OOOOOOOOOOOOOOO @@                                   @@ OOOOOOOOOOOOOOOO.
-    OOOOOOOOOOOOOOOO @@                                    @@ OOOOOOOOOOOOOOOO
-    OOOOOOOOOO'''''' @@                                    @@ ```````OOOOOOOOO
-    OOOOO'' aaa@@@@@@@@@@@@@@@@@@@@"""                   """""""""@@aaaa `OOOO
-    OOOOO,""""@@@@@@@@@@@@@@""""                                     a@"" OOOA
-    OOOOOOOOOoooooo,                                            |OOoooooOOOOOS
-    OOOOOOOOOOOOOOOOo,                                          |OOOOOOOOOOOOC
-    OOOOOOOOOOOOOOOOOO                                         ,|OOOOOOOOOOOOI
-    OOOOOOOOOOOOOOOOOO @          THE                          |OOOOOOOOOOOOOI
-    OOOOOOOOOOOOOOOOO'@           COMMAND                      OOOOOOOOOOOOOOb
-    OOOOOOOOOOOOOOO'a'            LINE                         |OOOOOOOOOOOOOy
-    OOOOOOOOOOOOOO''              MURDERS                      aa`OOOOOOOOOOOP
-    OOOOOOOOOOOOOOb,..                                          `@aa``OOOOOOOh
-    OOOOOOOOOOOOOOOOOOo                                           `@@@aa OOOOo
-    OOOOOOOOOOOOOOOOOOO|                                             @@@ OOOOe
-    OOOOOOOOOOOOOOOOOOO@                               aaaaaaa       @@',OOOOn
-    OOOOOOOOOOOOOOOOOOO@                        aaa@@@@@@@@""        @@ OOOOOi
-    OOOOOOOOOO~~ aaaaaa"a                 aaa@@@@@@@@@@""            @@ OOOOOx
-    OOOOOO aaaa@"""""""" ""            @@@@@@@@@@@@""               @@@|`OOOO'
-    OOOOOOOo`@@a                  aa@@  @@@@@@@""         a@        @@@@ OOOO9
-    OOOOOOO'  `@@a               @@a@@   @@""           a@@   a     |@@@ OOOO3
-    `OOOO'       `@    aa@@       aaa"""          @a        a@     a@@@',OOOO'
+As a developer, you will get familiar with the term "User story" at the beginning of any project. It describes what the user will be able to do/see with the application. User story sections are different from project to project, however majority of them will format like this :
 
+User can see a list of games from the API in any format (list, gallery, ... ) -> done with list 
 
-There's been a murder in Terminal City, and TCPD needs your help.
+User can see the game initial info (image, title, and price ...) in each item -> done 
 
-Before you start, skim through the required materials in the Command Line and Version Control sections of the PreCourse on Teachable. Use it as a reference while working through the case.
+User can see a Search input box -> done
 
-Now with your Terminal at hand you're ready to start. A couple of ground rules first:
+User is able to Search for games by app name -> done 
 
-- **Don't use a text editor**. You will find that the command line is an incredibly powerful tool on its own.
-- You can use Google, PreCourse materials, cheatsheets or any other materials available.
+User is able to see the search results -> done 
 
-# To the investigation!
+User can see list of all genres (category) -> done 
 
-## Step 1: Get the repo
+User is able to filter games that match the genre and tag buttons that clicked -> done 
 
-First you need to fork this [repository](https://help.github.com/articles/github-glossary/#repository). To do that click on the "Fork" button in the upper right corner of this page. Forking a 'repo' creates a copy of the repository on your Github account. This gives you your own version of the project to experiment with.
+User sees the website with a clean UI design.
 
-![Fork](./img/fork_button.jpg)
-
-Next you need to download those files to your machine so that you can edit them. To do that you must clone your forked repository. See [this Github guide](https://help.github.com/articles/cloning-a-repository/) on how to do this.
-
-## Step 2: Investigate
-
-Each step of your investigation will contain a reference to the **Detective Handbook** at the top. Each page of the Detective Handbook contains the description of the commands you will need to complete that particular step.
-
-Open a Terminal, go to the location of the files (using the `cd` command), and start by reading the file 'step0'.
-
-One way you can do this is with following command:
-
-    cat step0
-
-(`cat` is a command that will print the contents of the file called `step0` for you to read.)
-
-### Credits
-
-By Noah Veltman
-Projects: [noahveltman.com](http://noahveltman.com)
-GitHub: [veltman](https://github.com/veltman)
-Twitter: [@veltman](https://twitter.com/veltman)
-
-Adapted by the Makers Academy Team
+User can view the website in an IphoneX screensize
