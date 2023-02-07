@@ -64,19 +64,24 @@ async function fetchData(url) {
 //search for games
 async function searchGames() {
 
-  let url;
+  let url = BASE_URL + `/games/?`;
   
-  if (genreSelected !== "" && search !== "" && tagSelected !== ""){
-    url = BASE_URL + `/games/?q=${search}&genres=${genreSelected}&steamspy_tags=${tagSelected}`;
-  } else if (genreSelected === ""){
-    url = BASE_URL + `/games/?q=${search}&steamspy_tags=${tagSelected}`;
-  } else if (tagSelected === ""){
-    url = BASE_URL + `/games/?q=${search}&genres=${genreSelected}`;
-  } else if (search === ""){
-    url = BASE_URL + `/games/?genres=${genreSelected}&steamspy_tags=${tagSelected}`;
-  } else {
-    url = BASE_URL + `/games`;
-  };
+  console.log("search"+ search);
+  console.log("genre" + genreSelected);
+  console.log("tag" + tagSelected);
+
+
+  if (search !== ""){
+    url = url + `q=${search}`;
+  } 
+  
+  if (genreSelected !== ""){
+    url = url + `&genres=${genreSelected}`;
+  } 
+
+  if (tagSelected !== ""){
+    url = BASE_URL + `&steamspy_tags=${genreSelected}`;
+  }
 
   console.log("searchGames " + url);
 
@@ -91,11 +96,13 @@ const renderGames = async () => {
    
   games = [];
 
-  console.log("renderGames"+ search);
+  //console.log("renderGames"+ search);
 
   try {
     // Search games from the API
     games = await searchGames();
+
+
 
     // ' len is zero
     if (!games.length) {
@@ -232,6 +239,7 @@ const init = async () => {
     renderGames();
 
     console.log("loaded");
+
   } catch (err) {
     console.log("err", err);
   }
