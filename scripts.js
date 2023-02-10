@@ -45,7 +45,7 @@ let gameSelected;
 //fetch data from the URL
 async function fetchData(url) {
 
-  console.log("fetchData " + url);
+  //console.log("fetchData " + url);
 
   try {
     const response = await fetch(`${url}`);
@@ -66,9 +66,9 @@ async function searchGames() {
 
   let url = BASE_URL + `/games/?`;
   
-  console.log("search"+ search);
-  console.log("genre" + genreSelected);
-  console.log("tag" + tagSelected);
+  console.log("search = "+ search);
+  console.log("genre = " + genreSelected);
+  console.log("tag = " + tagSelected);
 
 
   if (search !== ""){
@@ -80,8 +80,10 @@ async function searchGames() {
   } 
 
   if (tagSelected !== ""){
-    url = BASE_URL + `&steamspy_tags=${genreSelected}`;
+    url = url + `&steamspy_tags=${tagSelected}`;
   }
+
+  url = url + `&page=1&limit=100`;
 
   console.log("searchGames " + url);
 
@@ -102,40 +104,57 @@ const renderGames = async () => {
     // Search games from the API
     games = await searchGames();
 
-
+    const allGamesList = document.getElementById("all_games_list");
 
     // ' len is zero
     if (!games.length) {
-      console.log("No games.");
-      return;
-    }
+      
+      allGamesList.innerHTML = "No games";
 
-    const allGamesList = document.getElementById("all_games_list");
+      //return;
 
-    allGamesList.innerHTML = "";
+    } else {
 
-    games.forEach((game, index) => {
-      //Create new `Game Wrapper` for each element
-      const divGameWrapper = document.createElement("div");
-      divGameWrapper.innerHTML = `
-      <div class="game_wrapper">
-          <img
-            src="${game.header_image}"
-            alt=""
-          />
-          <div class="game_info">
-            <div class="game_name">${game.name}</div>
-            <div class="game_price">USD ${game.price}</div>
-            <div class="game_genres">${game.genres}</div>
-          </div>
-        </div>`;
+      //const allGamesList = document.getElementById("all_games_list");
 
-      allGamesList.appendChild(divGameWrapper);
+      allGamesList.innerHTML = "";
+  
+      games.forEach((game, index) => {
+        //Create new `Game Wrapper` for each element
+        const divGameWrapper = document.createElement("div");
+        divGameWrapper.innerHTML = `
+        <div class="game_wrapper">
+            <img
+              src="${game.header_image}"
+              alt=""
+            />
+            <div class="game_info">
+              <div class="game_name">${game.name}</div>
+              <div class="game_genre">${game.genres}</div>
+            </div>
+          </div>`;
+  
+        allGamesList.appendChild(divGameWrapper);
+      });
+    };
 
-    });
   } catch (err) {
     console.log("err", err);
   }
+};
+
+
+//select genre option
+function selectGenreOption () {
+  
+  let e = document.getElementById("select_genre_option");
+  let value = e.value;
+  let text = e.options[e.selectedIndex].text;
+
+  selectGenre(text);
+
+  //renderGames();
+  
 };
 
 //select genre
@@ -143,6 +162,19 @@ function selectGenre (genre) {
   
   genreSelected = genre;
   renderGames();
+  
+};
+
+//select genre option
+function selectTagOption () {
+  
+  let e = document.getElementById("select_tag_option");
+  let value = e.value;
+  let text = e.options[e.selectedIndex].text;
+
+  selectTag(text);
+
+  //renderGames();
   
 };
 
@@ -163,7 +195,7 @@ function selectSearch () {
 
 //get the genres list
 async function getGenres() {
-  let url = BASE_URL + `/genres`;
+  let url = BASE_URL + `/genres?page=1&limit=100`;
 
   let genres = fetchData(url);
 
@@ -172,7 +204,7 @@ async function getGenres() {
 
 //get the tags list
 async function getTags() {
-  let url = BASE_URL + `/steamspy-tags`;
+  let url = BASE_URL + `/steamspy-tags?page=1&limit=100`;
 
   let tags = fetchData(url);
 
@@ -194,22 +226,22 @@ const init = async () => {
       return;
     }
 
-    const allGenresList = document.getElementById("genres_list");
-
+    let allGenresList = document.getElementById("genres_list");
     allGenresList.innerHTML = "Search by genres";
 
+    
+    let selectGenresList = document.createElement("select");
+    selectGenresList.id = "select_genre_option";
+    selectGenresList.setAttribute("onchange", "selectGenreOption()");
+    allGenresList.appendChild(selectGenresList);
+
     genres.forEach((genre, index) => {
-      //Create new `Game Wrapper` for each element
-      const divGenres = document.createElement("div");
-      divGenres.innerHTML = `
-      <button
-      id="select_genre"
-      class="btn"
-      onclick={selectGenre('${genre.name}')}>
-      ${genre.name}
-    </button>`;
-      allGenresList.appendChild(divGenres);
+      //create option for each genre 
+      let option = document.createElement("option");
+      option.value = option.text = `${genre.name}`;
+      selectGenresList.add(option);
     });
+
 
     // Get tags list from the API
     tags = await getTags();
@@ -219,30 +251,28 @@ const init = async () => {
       return;
     }
 
-    const allTagsList = document.getElementById("tags_list");
-
+    let allTagsList = document.getElementById("tags_list");
     allTagsList.innerHTML = "Search by tags";
 
+    let selectTagsList = document.createElement("select");
+    selectTagsList.id = "select_tag_option";
+    selectTagsList.setAttribute("onchange", "selectTagOption()");
+    allTagsList.appendChild(selectTagsList);
+
     tags.forEach((tag, index) => {
-      //Create new `Tag Wrapper` for each element
-      const divTags = document.createElement("div");
-      divTags.innerHTML = `
-      <button
-      id="select_tag"
-      class="btn"
-      onclick={selectTag('${tag.name}')}>
-      ${tag.name}
-    </button>`;
-      allTagsList.appendChild(divTags);
+      //create option for each tag
+      let option = document.createElement("option");
+      option.value = option.text = `${tag.name}`;
+      selectTagsList.add(option);
     });
 
     renderGames();
-
-    console.log("loaded");
 
   } catch (err) {
     console.log("err", err);
   }
 };
+
+//document.getElementById("select_genre_option").addEventListener("onchange", selectGenreOption());
 
 

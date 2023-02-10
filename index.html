@@ -88,35 +88,28 @@
         </nav>
       </div>
 
-      <div class="search-container">
-          <input id="search_query" type="text" placeholder="Search.." name="search" />
-          <button id="search-button" class="btn" onclick="selectSearch()">Search</button>
-      </div>
     </div>
 
     <div class="content">
       <div class="left">
-        <div id="genres_list">
-          Search by genres
-          <div class="genres_wrapper">
-            <button id="select_genre" class="btn" onclick="selectGenre('action')">
-            action
-            </button>
-          </div>
+
+        <div id="genres_list">          
         </div>
-            
+        
         <div id="tags_list">
-          Search by tags
-          <div class="tags_wrapper">
-            <button id="select_tag" class="btn" onclick="selectTag('action')">
-            action
-            </button>
-          </div>
         </div>
+
+        <div class="search-container">
+          Search by name
+          <input id="search_query" type="text" placeholder="Search.." name="search" />
+          <button id="search-button" class="btn" onclick="selectSearch()">Search</button>
+      </div>
+
       </div>
       
       <div id="all_games_list">
         <div class="loader"></div>
+        <div class="result"></div>
       </div>
       
     </div>
