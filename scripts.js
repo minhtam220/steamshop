@@ -104,7 +104,7 @@ const renderGames = async () => {
     // Search games from the API
     games = await searchGames();
 
-    const allGamesList = document.getElementById("games_list");
+    let allGamesList = document.getElementById("games_list");
 
     // ' len is zero
     if (!games.length) {
@@ -121,17 +121,14 @@ const renderGames = async () => {
   
       games.forEach((game, index) => {
         //Create new `Game Wrapper` for each element
-        const divGameWrapper = document.createElement("div");
-        divGameWrapper.innerHTML = `
-        <div class="game_wrapper">
+        let divGameWrapper = document.createElement("div");
+        divGameWrapper.className = "game_wrapper";
+        divGameWrapper.innerHTML = ` 
             <img
-              src="${game.header_image}"
-              alt=""
-            />
+            src="${game.header_image}"/>  
             <div class="game_info">
               <div class="game_price">$ ${game.price}</div>
-            </div>
-          </div>`;
+            </div>`;
   
         allGamesList.appendChild(divGameWrapper);
       });

@@ -16,15 +16,16 @@
 
   <body onload="init()">
     <div class="header">
+
       <div class="logo">
         <a href="index.html" class="href"
           ><img
-            src="https://storfe.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016"
+            src="./logo_steam.svg"
             alt=""
         /></a>
       </div>
 
-      <div class="navigation">
+      <div class="top_menu">
         <nav role="navigation" class="nav">
           <ul class="nav-items">
             <li class="nav-item dropdown">
@@ -88,42 +89,32 @@
         </nav>
       </div>
 
-      <div class="search-container">
-          
-      </div>
     </div>
 
     <div class="content">
-      <div class="left">
-        <div id="genres_list">
-          Search by genres
-          <div class="genres_wrapper">
-            <button id="select_genre" class="btn" onclick="selectGenre('action')">
-            action
-            </button>
-          </div>
+      <div class="left_menu">
+
+        <div id="genres_list">          
         </div>
-            
+        
+        <br>
+
         <div id="tags_list">
-          Search by tags
-          <div class="tags_wrapper">
-            <button id="select_tag" class="btn" onclick="selectTag('action')">
-            action
-            </button>
-          </div>
         </div>
+
+        <br>
+
+        <div class="search_box">
+          SEARCH BY KEYWORDS <br>
+          <input id="search_query" type="text" placeholder="Search.." name="search" /> <br>
+          <button id="search_button" class="btn" onclick="selectSearch()">SEARCH</button>
+        </div>
+
       </div>
       
-      <div id="all_games_list">
-        <div class="game_wrapper">
-          <img
-            src="https://steamcdn-a.akamaihd.net/steam/apps/72850/header.jpg?t=1493767797"
-            alt=""
-          />
-          <div class="game_info">
-
-          </div>
-        </div>
+      <div id="games_list">
+        <div class="loader"></div>
+        <div class="result"></div>
       </div>
       
     </div>

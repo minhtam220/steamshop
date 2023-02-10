@@ -243,6 +243,8 @@ html {
   flex-direction: column;
   align-items: flex-end;
 
+  margin-left: 20%;
+
 }
 
 select {
@@ -311,40 +313,36 @@ input[type="text"] {
 
 /*style for games list*/
 #games_list {
- 
   display: flex;
   flex-wrap: wrap;
-  row-gap: 10px;
-  column-gap: 2em;
-  width: 60%;
-  
+  /*row-gap: 10px;*/
+  margin-right:20%;
 }
 
 .game_wrapper {
-  margin: 10px;
-  width: 300px;
+  background-color: #4c6b22;
+  margin:10px;
+  width: 30%;
 }
 
 img {
-  width: 300px;
+  width: 100%;
 }
 
+/*
 .game_info {
   font-family: "Motiva Sans", Sans-serif;
   background-color: #417a9b;
-  width: 300px;
-  display: flex;
-}
-
-.game_name {
-  justify-self: flex-start;
-}
+  display:block;
+}*/
 
 .game_price {
   background-color: #4c6b22;
   color:#BEEE11;
-  font-size: 20px;
+  font-size: 30px;
   text-align:right;
+  float:right;
+  padding: 5px;
 
 }
 
