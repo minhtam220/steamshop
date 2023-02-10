@@ -330,17 +330,22 @@ img {
 }
 
 .game_info {
-  background-color: red;
+  font-family: "Motiva Sans", Sans-serif;
+  background-color: #417a9b;
   width: 300px;
   display: flex;
 }
 
-.game_info .game_name {
+.game_name {
   justify-self: flex-start;
 }
 
-.game_info .game_price {
-  justify-self: flex-end;
+.game_price {
+  background-color: #4c6b22;
+  color:#BEEE11;
+  font-size: 20px;
+  text-align:right;
+
 }
 
 /*@media screen and (max-width: 600px) {

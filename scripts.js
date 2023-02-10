@@ -129,8 +129,7 @@ const renderGames = async () => {
               alt=""
             />
             <div class="game_info">
-              <div class="game_name">${game.name}</div>
-              <div class="game_genre">${game.genres}</div>
+              <div class="game_price">$ ${game.price}</div>
             </div>
           </div>`;
   
