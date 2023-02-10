@@ -22,6 +22,7 @@ html {
   box-sizing: inherit;
 }
 
+/*style for header*/
 .header {
   background-color: black;
   color: white;
@@ -32,35 +33,20 @@ html {
   align-items: center;
 }
 
+/*style for logo*/
 .logo img {
   height: 36px;
 }
 
-/*style for loader*/
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/*style for top menu*/
+.top_menu {
+  background-color: black;
 }
 
 /* Navigation https://codepen.io/ryanmorr/pen/LVzYmx/ */
+/*.header*/ 
 
-.header .nav {
+.nav {
   float: center;
 }
 
@@ -69,8 +55,6 @@ html {
   -margin: 100px auto 0 auto;
   text-align: center;
 }
-
-/* Navigation */
 
 .nav {
   font-family: Georgia, Arial, sans-serif;
@@ -234,38 +218,129 @@ html {
   pointer-events: auto;
 }
 
-/*search bar*/
-.header .search-container {
-  /*float: right;*/
-  font-family: "Roboto", sans-serif;
+/*style for content*/
+.content {
+  background-color: #c6d4df;
+  color: black;
+  
+  display: flex;
+  /*justify-content: space-evenly;*/
+  align-items: center;
 }
 
-.header input[type="text"] {
+/*style for left menu*/
+.left_menu {
+  width: 20%;
+  
+  color: black;
+  align-self: flex-start;
+
+  font-family: Georgia, Arial, sans-serif;
+  font-size: 14px;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+}
+
+select {
+  width: 200px;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   padding: 6px;
   margin-top: 8px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+
+}
+
+/*style for loader*/
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*search bar*/
+.search_box {
+  font-family: "Roboto", sans-serif;
+}
+
+input[type="text"] {
+  width: 200px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 10px;
   font-size: 17px;
   border: none;
 }
 
-.header .search-container button {
-  float: right;
-  padding: 6px 10px;
+.search_box button {
+  width: 200px;
+  padding: 6px;
   margin-top: 8px;
-  margin-right: 16px;
+  margin-right: 10px;
   background: #ddd;
-  font-size: 17px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 }
 
-.header .search-container button:hover {
+.search_box button:hover {
   background: #ccc;
 }
 
-.search-container form {
-  align-self: center;
+/*style for games list*/
+#games_list {
+ 
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 2em;
+  width: 60%;
+  
+}
+
+.game_wrapper {
+  margin: 10px;
+  width: 300px;
+}
+
+img {
+  width: 300px;
+}
+
+.game_info {
+  background-color: red;
+  width: 300px;
+  display: flex;
+}
+
+.game_info .game_name {
+  justify-self: flex-start;
+}
+
+.game_info .game_price {
+  justify-self: flex-end;
 }
 
 /*@media screen and (max-width: 600px) {
@@ -287,40 +362,7 @@ html {
 }
 */
 
-.content {
-  /*justify-items: space-evenly;*/
-  display: flex;
-}
 
-#all_games_list {
-  background-color: yellow;
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 10px;
-  column-gap: 2em;
-}
-
-.game_wrapper {
-  margin: 10px;
-  width: 300px;
-}
-
-img {
-  width: 300px;
-}
-.game_info {
-  background-color: red;
-  width: 300px;
-  display: flex;
-}
-
-.game_info .game_name {
-  justify-self: flex-start;
-}
-
-.game_info .game_price {
-  justify-self: flex-end;
-}
 
 .footer {
   background-color: yellow;

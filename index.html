@@ -16,6 +16,7 @@
 
   <body onload="init()">
     <div class="header">
+
       <div class="logo">
         <a href="index.html" class="href"
           ><img
@@ -24,7 +25,7 @@
         /></a>
       </div>
 
-      <div class="navigation">
+      <div class="top_menu">
         <nav role="navigation" class="nav">
           <ul class="nav-items">
             <li class="nav-item dropdown">
@@ -91,23 +92,27 @@
     </div>
 
     <div class="content">
-      <div class="left">
+      <div class="left_menu">
 
         <div id="genres_list">          
         </div>
         
+        <br>
+
         <div id="tags_list">
         </div>
 
-        <div class="search-container">
-          Search by name
-          <input id="search_query" type="text" placeholder="Search.." name="search" />
-          <button id="search-button" class="btn" onclick="selectSearch()">Search</button>
-      </div>
+        <br>
+
+        <div class="search_box">
+          SEARCH BY KEYWORDS <br>
+          <input id="search_query" type="text" placeholder="Search.." name="search" /> <br>
+          <button id="search_button" class="btn" onclick="selectSearch()">SEARCH</button>
+        </div>
 
       </div>
       
-      <div id="all_games_list">
+      <div id="games_list">
         <div class="loader"></div>
         <div class="result"></div>
       </div>

@@ -104,7 +104,7 @@ const renderGames = async () => {
     // Search games from the API
     games = await searchGames();
 
-    const allGamesList = document.getElementById("all_games_list");
+    const allGamesList = document.getElementById("games_list");
 
     // ' len is zero
     if (!games.length) {
@@ -227,7 +227,7 @@ const init = async () => {
     }
 
     let allGenresList = document.getElementById("genres_list");
-    allGenresList.innerHTML = "Search by genres";
+    allGenresList.innerHTML = "SELECT A GENRE <br>";
 
     
     let selectGenresList = document.createElement("select");
@@ -252,13 +252,14 @@ const init = async () => {
     }
 
     let allTagsList = document.getElementById("tags_list");
-    allTagsList.innerHTML = "Search by tags";
+    allTagsList.innerHTML = "SELECT A TAG <br>";
 
     let selectTagsList = document.createElement("select");
     selectTagsList.id = "select_tag_option";
     selectTagsList.setAttribute("onchange", "selectTagOption()");
     allTagsList.appendChild(selectTagsList);
 
+    
     tags.forEach((tag, index) => {
       //create option for each tag
       let option = document.createElement("option");
