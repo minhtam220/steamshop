@@ -85,7 +85,6 @@ async function searchGames() {
     searchParam.append("steamspy_tags",tagSelected);
   }
 
-  //
   let games = [];
 
   let data = [];
@@ -96,31 +95,31 @@ async function searchGames() {
 
   let dataLength = 101;
 
-  while (dataLength > 100) {
+  while (pageIndex < 3) {
 
     searchParam.append("page",pageIndex);
 
     searchParam.append("limit",dataLimit);
 
-    console.log(GAME_URL + searchParam.toString());
-
-    data = fetchData(GAME_URL + searchParam.toString());
+    data = await fetchData(GAME_URL + searchParam.toString());
 
     dataLength = data.length;
 
-    games = data;
+    games = games.concat(data);
 
     pageIndex = pageIndex + 1;
+
+    console.log(GAME_URL + searchParam.toString());
+
+    console.log("data length " + data.length);
 
     searchParam.delete("page");
 
     searchParam.delete("limit");
 
-    console.log("data " + data.length);
-
-    console.log("games " + games.length);
-
   }
+
+  console.log(games.length);
 
   return games;
 
@@ -130,8 +129,6 @@ async function searchGames() {
 const renderGames = async () => {
    
   games = [];
-
-  //console.log("renderGames"+ search);
 
   try {
     // Search games from the API
@@ -148,8 +145,6 @@ const renderGames = async () => {
 
     } else {
 
-      //const allGamesList = document.getElementById("all_games_list");
-
       allGamesList.innerHTML = "";
   
       games.forEach((game, index) => {
@@ -159,6 +154,7 @@ const renderGames = async () => {
         divGameWrapper.innerHTML = ` 
             <img
             src="${game.header_image}"/>  
+            <div class="game_name">$ ${game.name}</div>
             <div class="game_price">$ ${game.price}</div>
             `;
   
@@ -223,18 +219,80 @@ function selectSearch () {
 
 //get the genres list
 async function getGenres() {
-  let url = BASE_URL + `/genres?page=1&limit=100`;
 
-  let genres = fetchData(url);
+  let GENRES_URL = BASE_URL + `/genres/?`;
+  
+  const searchParam = new URLSearchParams(`?`);
+
+  let genres = [];
+
+  let data = [];
+  
+  let pageIndex = 1;
+
+  const dataLimit = 100;
+
+  let dataLength = 101;
+
+  while (dataLength > 99 ) {
+
+    searchParam.append("page",pageIndex);
+
+    searchParam.append("limit",dataLimit);
+
+    data = await fetchData(GENRES_URL + searchParam.toString());
+
+    dataLength = data.length;
+
+    genres = genres.concat(data);
+
+    pageIndex = pageIndex + 1;
+
+    searchParam.delete("page");
+
+    searchParam.delete("limit");
+
+  }
 
   return genres;
 }
 
 //get the tags list
 async function getTags() {
-  let url = BASE_URL + `/steamspy-tags?page=1&limit=100`;
+  
+  let TAGS_URL = BASE_URL + `/steamspy-tags/?`;
 
-  let tags = fetchData(url);
+  const searchParam = new URLSearchParams(`?`);
+
+  let tags = [];
+
+  let data = [];
+  
+  let pageIndex = 1;
+
+  const dataLimit = 100;
+
+  let dataLength = 101;
+
+  while (dataLength > 99 ) {
+
+    searchParam.append("page",pageIndex);
+
+    searchParam.append("limit",dataLimit);
+
+    data = await fetchData(TAGS_URL + searchParam.toString());
+
+    dataLength = data.length;
+
+    tags = tags.concat(data);
+
+    pageIndex = pageIndex + 1;
+
+    searchParam.delete("page");
+
+    searchParam.delete("limit");
+
+  }
 
   return tags;
 }
