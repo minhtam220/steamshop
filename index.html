@@ -94,12 +94,20 @@
     <div class="content">
       <div class="left_menu">
 
-        <div id="genres_list">          
+        <div id="genres_list"> 
+          SELECT A GENRE <br> 
+          <select id="select_genre_option" onchange="selectGenreOption()">
+            <option value="">all</option>
+          </select>
         </div>
         
         <br>
 
         <div id="tags_list">
+          SELECT A TAG <br> 
+          <select id="select_tag_option" onchange="selectTagOption()">
+            <option value="">all</option>
+          </select>
         </div>
 
         <br>
@@ -121,9 +129,5 @@
 
     <script src="./scripts.js"></script>
 
-    <div class="footer">
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-      ?"
-    </div>
   </body>
 </html>

@@ -64,30 +64,63 @@ async function fetchData(url) {
 //search for games
 async function searchGames() {
 
-  let url = BASE_URL + `/games/?`;
+  let GAME_URL = BASE_URL + `/games/?`;
   
+  const searchParam = new URLSearchParams(`?`);
+
   console.log("search = "+ search);
   console.log("genre = " + genreSelected);
   console.log("tag = " + tagSelected);
-
+  console.log("searchParam" + searchParam);
 
   if (search !== ""){
-    url = url + `q=${search}`;
+    searchParam.append("q",search);
   } 
   
   if (genreSelected !== ""){
-    url = url + `&genres=${genreSelected}`;
+    searchParam.append("genres",genreSelected);
   } 
 
   if (tagSelected !== ""){
-    url = url + `&steamspy_tags=${tagSelected}`;
+    searchParam.append("steamspy_tags",tagSelected);
   }
 
-  url = url + `&page=1&limit=100`;
+  //
+  let games = [];
 
-  console.log("searchGames " + url);
+  let data = [];
+  
+  let pageIndex = 1;
 
-  let games = fetchData(url);
+  const dataLimit = 100;
+
+  let dataLength = 101;
+
+  while (dataLength > 100) {
+
+    searchParam.append("page",pageIndex);
+
+    searchParam.append("limit",dataLimit);
+
+    console.log(GAME_URL + searchParam.toString());
+
+    data = fetchData(GAME_URL + searchParam.toString());
+
+    dataLength = data.length;
+
+    games = data;
+
+    pageIndex = pageIndex + 1;
+
+    searchParam.delete("page");
+
+    searchParam.delete("limit");
+
+    console.log("data " + data.length);
+
+    console.log("games " + games.length);
+
+  }
 
   return games;
 
@@ -126,9 +159,8 @@ const renderGames = async () => {
         divGameWrapper.innerHTML = ` 
             <img
             src="${game.header_image}"/>  
-            <div class="game_info">
-              <div class="game_price">$ ${game.price}</div>
-            </div>`;
+            <div class="game_price">$ ${game.price}</div>
+            `;
   
         allGamesList.appendChild(divGameWrapper);
       });
@@ -154,9 +186,9 @@ function selectGenreOption () {
 };
 
 //select genre
-function selectGenre (genre) {
+function selectGenre (genreParam) {
   
-  genreSelected = genre;
+  genreSelected = genreParam;
   renderGames();
   
 };
@@ -175,9 +207,9 @@ function selectTagOption () {
 };
 
 //select Tag
-function selectTag (tag) {
+function selectTag (tagParam) {
   
-  tagSelected = tag;
+  tagSelected = tagParam;
   renderGames();
   
 };
@@ -221,16 +253,9 @@ const init = async () => {
       console.log("No genres.");
       return;
     }
-
-    let allGenresList = document.getElementById("genres_list");
-    allGenresList.innerHTML = "SELECT A GENRE <br>";
-
     
-    let selectGenresList = document.createElement("select");
-    selectGenresList.id = "select_genre_option";
-    selectGenresList.setAttribute("onchange", "selectGenreOption()");
-    allGenresList.appendChild(selectGenresList);
-
+    let selectGenresList = document.getElementById("select_genre_option");
+   
     genres.forEach((genre, index) => {
       //create option for each genre 
       let option = document.createElement("option");
@@ -247,15 +272,8 @@ const init = async () => {
       return;
     }
 
-    let allTagsList = document.getElementById("tags_list");
-    allTagsList.innerHTML = "SELECT A TAG <br>";
-
-    let selectTagsList = document.createElement("select");
-    selectTagsList.id = "select_tag_option";
-    selectTagsList.setAttribute("onchange", "selectTagOption()");
-    allTagsList.appendChild(selectTagsList);
-
-    
+    let selectTagsList = document.getElementById("select_tag_option");
+        
     tags.forEach((tag, index) => {
       //create option for each tag
       let option = document.createElement("option");
