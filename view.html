@@ -14,7 +14,7 @@
     />
   </head>
 
-  <body onload="init()">
+  <body onload="renderSingleGame()">
     <div class="header">
 
       <div class="logo">
@@ -94,25 +94,9 @@
     <div class="content">
       <div class="left_menu">
 
-        <div id="genres_list">          
-        </div>
-        
-        <br>
-
-        <div id="tags_list">
-        </div>
-
-        <br>
-
-        <div class="search_box">
-          SEARCH BY KEYWORDS <br>
-          <input id="search_query" type="text" placeholder="Search.." name="search" /> <br>
-          <button id="search_button" class="btn" onclick="selectSearch()">SEARCH</button>
-        </div>
-
       </div>
       
-      <div id="games_list">
+      <div id="single_game">
         <div class="loader"></div>
         <div class="result"></div>
       </div>
@@ -121,9 +105,5 @@
 
     <script src="./scripts.js"></script>
 
-    <div class="footer">
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-      ?"
-    </div>
   </body>
 </html>

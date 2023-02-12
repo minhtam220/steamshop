@@ -42,16 +42,65 @@ let search = "";
 let gamesList;
 let gameSelected;
 
+const init = async () => {
+  let genres = [];
+  let tags = [];
+
+  try {
+
+    // Get genres list from the API
+    genres = await getGenres();
+    // ' len is zero
+    if (!genres.length) {
+      console.log("No genres.");
+      return;
+    }
+    
+    let selectGenresList = document.getElementById("select_genre_option");
+   
+    genres.forEach((genre, index) => {
+      //create option for each genre 
+      let option = document.createElement("option");
+      option.value = option.text = `${genre.name}`;
+      selectGenresList.add(option);
+    });
+
+
+    // Get tags list from the API
+    tags = await getTags();
+    // ' len is zero
+    if (!tags.length) {
+      console.log("No tags.");
+      return;
+    }
+
+    let selectTagsList = document.getElementById("select_tag_option");
+        
+    tags.forEach((tag, index) => {
+      //create option for each tag
+      let option = document.createElement("option");
+      option.value = option.text = `${tag.name}`;
+      selectTagsList.add(option);
+    });
+
+    renderGames();
+
+  } catch (err) {
+    console.log("err", err);
+  }
+};
+
 //fetch data from the URL
 async function fetchData(url) {
 
-  //console.log("fetchData " + url);
+  console.log("fetchData " + url);
 
   try {
     const response = await fetch(`${url}`);
     if (response.ok) {
       const data = await response.json();
       const result = data["data"];
+      console.log(result);
       return result;
     }
   } catch (error) {
@@ -60,113 +109,6 @@ async function fetchData(url) {
   }
 
 }
-
-//search for games
-async function searchGames() {
-
-  let GAME_URL = BASE_URL + `/games/?`;
-  
-  const searchParam = new URLSearchParams(`?`);
-
-  console.log("search = "+ search);
-  console.log("genre = " + genreSelected);
-  console.log("tag = " + tagSelected);
-  console.log("searchParam" + searchParam);
-
-  if (search !== ""){
-    searchParam.append("q",search);
-  } 
-  
-  if (genreSelected !== ""){
-    searchParam.append("genres",genreSelected);
-  } 
-
-  if (tagSelected !== ""){
-    searchParam.append("steamspy_tags",tagSelected);
-  }
-
-  let games = [];
-
-  let data = [];
-  
-  let pageIndex = 1;
-
-  const dataLimit = 100;
-
-  let dataLength = 101;
-
-  while (pageIndex < 3) {
-
-    searchParam.append("page",pageIndex);
-
-    searchParam.append("limit",dataLimit);
-
-    data = await fetchData(GAME_URL + searchParam.toString());
-
-    dataLength = data.length;
-
-    games = games.concat(data);
-
-    pageIndex = pageIndex + 1;
-
-    console.log(GAME_URL + searchParam.toString());
-
-    console.log("data length " + data.length);
-
-    searchParam.delete("page");
-
-    searchParam.delete("limit");
-
-  }
-
-  console.log(games.length);
-
-  return games;
-
-}
-
-//render games 
-const renderGames = async () => {
-   
-  games = [];
-
-  try {
-    // Search games from the API
-    games = await searchGames();
-
-    let allGamesList = document.getElementById("games_list");
-
-    // ' len is zero
-    if (!games.length) {
-      
-      allGamesList.innerHTML = "No games";
-
-      //return;
-
-    } else {
-
-      allGamesList.innerHTML = "";
-  
-      games.forEach((game, index) => {
-        //Create new `Game Wrapper` for each element
-        let divGameWrapper = document.createElement("div");
-        divGameWrapper.className = "game_wrapper";
-        divGameWrapper.innerHTML = ` 
-            <img
-            src="${game.header_image}"/>  
-            <div class="game_name">$ ${game.name}</div>
-            <div class="game_price">$ ${game.price}</div>
-            `;
-  
-        allGamesList.appendChild(divGameWrapper);
-      });
-    };
-
-  } catch (err) {
-    console.log("err", err);
-  }
-};
-
 
 //select genre option
 function selectGenreOption () {
@@ -297,55 +239,160 @@ async function getTags() {
   return tags;
 }
 
+//search for games
+async function searchGames() {
 
-const init = async () => {
-  let genres = [];
-  let tags = [];
+  let GAME_URL = BASE_URL + `/games/?`;
+  
+  const searchParam = new URLSearchParams(`?`);
+
+  console.log("search = "+ search);
+  console.log("genre = " + genreSelected);
+  console.log("tag = " + tagSelected);
+  console.log("searchParam" + searchParam);
+
+  if (search !== ""){
+    searchParam.append("q",search);
+  } 
+  
+  if (genreSelected !== ""){
+    searchParam.append("genres",genreSelected);
+  } 
+
+  if (tagSelected !== ""){
+    searchParam.append("steamspy_tags",tagSelected);
+  }
+
+  let games = [];
+
+  let data = [];
+  
+  let pageIndex = 1;
+
+  const dataLimit = 100;
+
+  let dataLength = 101;
+
+  while (pageIndex < 3) {
+
+    searchParam.append("page",pageIndex);
+
+    searchParam.append("limit",dataLimit);
+
+    data = await fetchData(GAME_URL + searchParam.toString());
+
+    dataLength = data.length;
+
+    games = games.concat(data);
+
+    pageIndex = pageIndex + 1;
+
+    searchParam.delete("page");
+
+    searchParam.delete("limit");
+
+  }
+
+  console.log(games.length);
+
+  return games;
+
+}
+
+//render games 
+const renderGames = async () => {
+   
+  games = [];
 
   try {
+    // Search games from the API
+    games = await searchGames();
 
-    // Get genres list from the API
-    genres = await getGenres();
+    let allGamesList = document.getElementById("games_list");
+
     // ' len is zero
-    if (!genres.length) {
-      console.log("No genres.");
-      return;
-    }
-    
-    let selectGenresList = document.getElementById("select_genre_option");
-   
-    genres.forEach((genre, index) => {
-      //create option for each genre 
-      let option = document.createElement("option");
-      option.value = option.text = `${genre.name}`;
-      selectGenresList.add(option);
-    });
+    if (!games.length) {
+      
+      allGamesList.innerHTML = "No games";
 
+      //return;
 
-    // Get tags list from the API
-    tags = await getTags();
-    // ' len is zero
-    if (!tags.length) {
-      console.log("No tags.");
-      return;
-    }
+    } else {
 
-    let selectTagsList = document.getElementById("select_tag_option");
-        
-    tags.forEach((tag, index) => {
-      //create option for each tag
-      let option = document.createElement("option");
-      option.value = option.text = `${tag.name}`;
-      selectTagsList.add(option);
-    });
-
-    renderGames();
+      allGamesList.innerHTML = "";
+  
+      games.forEach((game, index) => {
+        //Create new `Game Wrapper` for each element
+        let divGameWrapper = document.createElement("div");
+        divGameWrapper.className = "game_wrapper";
+        divGameWrapper.innerHTML = ` 
+            <img
+            src="${game.header_image}"/>  
+            <div class="game_name">${game.name}</div>
+            <div class="game_price">$ ${game.price}</div>
+            <a href="file:///C:/Users/minht/Documents/GitHub/TAM/steamshop/view.html?appid=${game.appid}" target="_blank">View detail</a>
+            `;
+  
+        allGamesList.appendChild(divGameWrapper);
+      });
+    };
 
   } catch (err) {
     console.log("err", err);
   }
 };
 
-//document.getElementById("select_genre_option").addEventListener("onchange", selectGenreOption());
+//search for games
+async function viewGame(appidParam) {
+
+  let url = BASE_URL + `/single-game/` + appidParam;
+
+  let game = await fetchData(url);
+
+  return game;
+
+}
+
+//render games 
+const renderSingleGame = async () => {
+   
+  game = [];
+
+  let appid = getQuery("appid");
+
+  try {
+    // Search games from the API
+    game = await viewGame(appid);
+
+    let singleGameList = document.getElementById("single_game");
+
+    singleGameList.innerHTML = "";
+  
+    //Create new `Game Wrapper` for each element
+    let divGameWrapper = document.createElement("div");
+    divGameWrapper.className = "game_wrapper";
+    divGameWrapper.innerHTML = ` 
+        <img
+        src="${game.header_image}"/>  
+        <div class="game_name">${game.name}</div>
+        <div class="game_price">$ ${game.price}</div>
+        `;
+
+    singleGameList.appendChild(divGameWrapper);
+
+    } catch (err) {
+      console.log("err", err);
+    }
+};
+
+function getQuery(q) {
+  return (window.location.search.match(new RegExp('[?&]' + q + '=([^&]+)')) || [, null])[1];
+}
+
+
+
+
+
+
 
 
