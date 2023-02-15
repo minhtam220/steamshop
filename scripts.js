@@ -373,17 +373,21 @@ const renderSingleGame = async () => {
 
     let singleGameList = document.getElementById("single_game");
 
-    singleGameList.innerHTML = "";
-  
+    singleGameList.innerHTML = ``;
+    
     //Create new `Game Wrapper` for each element
     let divGameWrapper = document.createElement("div");
-    divGameWrapper.className = "game_wrapper";
+    divGameWrapper.className = "single_game_wrapper";
     divGameWrapper.innerHTML = ` 
-        <img
-        src="${game.header_image}"/>  
-        <div class="game_name">${game.name}</div>
-        <div class="game_price">$ ${game.price}</div>
-        `;
+    <h1>${game.name}</h1>
+    <h2>$ ${game.price}</h2>
+    <img id="single_game_image" src="${game.header_image}"/>  
+    <br>
+    <div id="single_game_description">${game.description}</div>
+    <br>
+    Popular user-defined tags for this product:
+    <div id="single_game_tags">${game.steamspy_tags}</div>
+    `;
 
     singleGameList.appendChild(divGameWrapper);
 

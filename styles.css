@@ -343,8 +343,22 @@ img {
   text-align:right;
   float:right;
   padding: 5px;
+}
+
+/*view page*/
+#single_game_image {
+  width: 80%;
+}
+
+#single_game_description {
+  width: 80%;
+}
+
+#single_game_tags {
 
 }
+
+
 
 /*@media screen and (max-width: 600px) {
   .header .search-container {
@@ -364,9 +378,3 @@ img {
   }
 }
 */
-
-
-
-.footer {
-  background-color: yellow;
-}
