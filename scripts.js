@@ -321,16 +321,23 @@ const renderGames = async () => {
 
       allGamesList.innerHTML = "";
   
+      console.log("hostname " + window.location.hostname);
+      console.log("pathname " + window.location.pathname);
+      console.log("href " + window.location.href);
+
+      let viewURL =  window.location.href.toString();
+
+      viewURL = viewURL.replace("index.html","view.html");
+
       games.forEach((game, index) => {
         //Create new `Game Wrapper` for each element
         let divGameWrapper = document.createElement("div");
         divGameWrapper.className = "game_wrapper";
         divGameWrapper.innerHTML = ` 
-            <img
-            src="${game.header_image}"/>  
+            <a href="${viewURL}?appid=${game.appid}" target="_blank"><img
+            src="${game.header_image}"/></a>
             <div class="game_name">${game.name}</div>
             <div class="game_price">$ ${game.price}</div>
-            <a href="file:///C:/Users/minht/Documents/GitHub/TAM/steamshop/view.html?appid=${game.appid}" target="_blank">View detail</a>
             `;
   
         allGamesList.appendChild(divGameWrapper);
