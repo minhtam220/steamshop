@@ -329,20 +329,24 @@ img {
   width: 100%;
 }
 
-/*
 .game_info {
-  font-family: "Motiva Sans", Sans-serif;
-  background-color: #417a9b;
-  display:block;
-}*/
+  display:flex;
+  justify-content: space-between;
+}
+
+.game_name {
+  background-color: #4c6b22;
+  color:#BEEE11;
+  font-size: 20px;
+  padding: 5px;
+}
 
 .game_price {
   background-color: #4c6b22;
   color:#BEEE11;
-  font-size: 30px;
-  text-align:right;
-  float:right;
+  font-size: 20px;
   padding: 5px;
+  justify-self: flex-end;
 }
 
 /*view page*/
@@ -353,12 +357,6 @@ img {
 #single_game_description {
   width: 80%;
 }
-
-#single_game_tags {
-
-}
-
-
 
 /*@media screen and (max-width: 600px) {
   .header .search-container {

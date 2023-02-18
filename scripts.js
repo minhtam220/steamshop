@@ -336,8 +336,10 @@ const renderGames = async () => {
         divGameWrapper.innerHTML = ` 
             <a href="${viewURL}?appid=${game.appid}" target="_blank"><img
             src="${game.header_image}"/></a>
-            <div class="game_name">${game.name}</div>
-            <div class="game_price">$ ${game.price}</div>
+            <div class="game_info">
+              <div class="game_name">${game.name}</div>
+              <div class="game_price">$ ${game.price}</div>
+            </div>
             `;
   
         allGamesList.appendChild(divGameWrapper);
