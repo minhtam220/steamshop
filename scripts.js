@@ -351,6 +351,7 @@ const renderGames = async () => {
   }
 };
 
+
 //search for games
 async function viewGame(appidParam) {
 
