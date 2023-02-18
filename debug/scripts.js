@@ -42,6 +42,7 @@ let search = "";
 let gamesList;
 let gameSelected;
 
+//initialize the page on first load
 const init = async () => {
   let genres = [];
   let tags = [];
@@ -49,14 +50,14 @@ const init = async () => {
   try {
 
     // Get genres list from the API
-    genres = await getGenres();
+    genres = await getAllGenres();
     // ' len is zero
     if (!genres.length) {
       console.log("No genres.");
       return;
     }
     
-    let selectGenresList = document.getElementById("select_genre_option");
+    let selectGenresList = document.getElementById("select_genre");
    
     genres.forEach((genre, index) => {
       //create option for each genre 
@@ -67,14 +68,14 @@ const init = async () => {
 
 
     // Get tags list from the API
-    tags = await getTags();
+    tags = await getAllTags();
     // ' len is zero
     if (!tags.length) {
       console.log("No tags.");
       return;
     }
 
-    let selectTagsList = document.getElementById("select_tag_option");
+    let selectTagsList = document.getElementById("select_tag");
         
     tags.forEach((tag, index) => {
       //create option for each tag
@@ -110,57 +111,8 @@ async function fetchData(url) {
 
 }
 
-//select genre option
-function selectGenreOption () {
-  
-  let e = document.getElementById("select_genre_option");
-  let value = e.value;
-  let text = e.options[e.selectedIndex].text;
-
-  selectGenre(text);
-
-  //renderGames();
-  
-};
-
-//select genre
-function selectGenre (genreParam) {
-  
-  genreSelected = genreParam;
-  renderGames();
-  
-};
-
-//select genre option
-function selectTagOption () {
-  
-  let e = document.getElementById("select_tag_option");
-  let value = e.value;
-  let text = e.options[e.selectedIndex].text;
-
-  selectTag(text);
-
-  //renderGames();
-  
-};
-
-//select Tag
-function selectTag (tagParam) {
-  
-  tagSelected = tagParam;
-  renderGames();
-  
-};
-
-//select search
-function selectSearch () {
-  search = document.getElementById("search_query").value;
-  genreSelected = "";
-  renderGames();  
-};
-
 //get the genres list
-async function getGenres() {
+async function getAllGenres() {
 
   let GENRES_URL = BASE_URL + `/genres/?`;
   
@@ -200,7 +152,7 @@ async function getGenres() {
 }
 
 //get the tags list
-async function getTags() {
+async function getAllTags() {
   
   let TAGS_URL = BASE_URL + `/steamspy-tags/?`;
 
@@ -239,10 +191,41 @@ async function getTags() {
   return tags;
 }
 
+
+//select genre
+function selectGenre () {
+  
+  let e = document.getElementById("select_genre");
+  genreSelected = e.options[e.selectedIndex].text;
+
+  renderGames();
+  
+};
+
+//select tag
+function selectTag () {
+  
+  let e = document.getElementById("select_tag");
+  tagSelected = e.options[e.selectedIndex].text;
+
+  renderGames();
+  
+};
+
+//select search
+function selectSearch () {
+
+  let e = document.getElementById("search_query");
+  search = e.value;
+
+  renderGames();  
+
+};
+
 //search for games
 async function searchGames() {
 
-  let GAME_URL = BASE_URL + `/games/?`;
+  let url = BASE_URL + `/games/?`;
   
   const searchParam = new URLSearchParams(`?`);
 
@@ -279,7 +262,7 @@ async function searchGames() {
 
     searchParam.append("limit",dataLimit);
 
-    data = await fetchData(GAME_URL + searchParam.toString());
+    data = await fetchData(url + searchParam.toString());
 
     dataLength = data.length;
 
@@ -352,8 +335,8 @@ const renderGames = async () => {
 };
 
 
-//search for games
-async function viewGame(appidParam) {
+//view single game by app id
+async function viewSingleGame(appidParam) {
 
   let url = BASE_URL + `/single-game/` + appidParam;
 
@@ -368,11 +351,11 @@ const renderSingleGame = async () => {
    
   game = [];
 
-  let appid = getQuery("appid");
+  let appid = getAppId("appid");
 
   try {
     // Search games from the API
-    game = await viewGame(appid);
+    game = await viewSingleGame(appid);
 
     let singleGameList = document.getElementById("single_game");
 
@@ -399,9 +382,13 @@ const renderSingleGame = async () => {
     }
 };
 
-function getQuery(q) {
+function getAppId(q) {
   return (window.location.search.match(new RegExp('[?&]' + q + '=([^&]+)')) || [, null])[1];
 }
+
+
+
+
 
 
 
