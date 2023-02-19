@@ -1,33 +1,3 @@
-//CODES FOR NAVIGATION BAR
-[].slice
-  .call(document.querySelectorAll(".dropdown .nav-link"))
-  .forEach(function (el) {
-    el.addEventListener("click", onClick, false);
-  });
-
-function onClick(e) {
-  e.preventDefault();
-  var el = this.parentNode;
-  console.log(el);
-  el.classList.contains("show-submenu") ? hideSubMenu(el) : showSubMenu(el);
-}
-
-function showSubMenu(el) {
-  el.classList.add("show-submenu");
-  document.addEventListener("click", function onDocClick(e) {
-    e.preventDefault();
-    if (el.contains(e.target)) {
-      return;
-    }
-    document.removeEventListener("click", onDocClick);
-    hideSubMenu(el);
-  });
-}
-
-function hideSubMenu(el) {
-  el.classList.remove("show-submenu");
-}
-
 //MAIN CODES
 //declare variables
 const BASE_URL = `https://steam-api-dot-cs-platform-306304.et.r.appspot.com`;
@@ -128,7 +98,7 @@ async function getAllGenres() {
 
   let dataLength = 101;
 
-  while (dataLength > 99 ) {
+  while (pageIndex < 2 ) {
 
     searchParam.append("page",pageIndex);
 

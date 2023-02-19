@@ -19,3 +19,30 @@ User is able to filter games that match the genre and tag buttons that clicked -
 User sees the website with a clean UI design.
 
 User can view the website in an IphoneX screensize
+
+changes:
+build 01
+- make steam logo align with left menu.
+- make game list align with top menu.
+
+build 02
+- make header (steam logo + top menu) static.
+- make left menu static.
+
+build 03
+- make top menu responsive.
+- make game list responsive. 
+- make left menu responsive.
+
+build 04
+- implement select by genre. 
+- implement select by tag.
+- implement search by keywords.
+- implement initial load.
+
+build 05
+- implement infinitive scroll.
+ 
+build 06
+- make view single game page 
+- implement view single game page from game list.
