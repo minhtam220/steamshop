@@ -356,6 +356,25 @@ function getAppId(q) {
   return (window.location.search.match(new RegExp('[?&]' + q + '=([^&]+)')) || [, null])[1];
 }
 
+window.onscroll = function() {myFunction()};
+      
+let header = document.getElementsByClassName("header");
+let left_menu = document.getElementsByClassName("left_menu");
+let sticky = header.offsetTop;
+
+function myFunction() {
+  
+  console.log(window.pageYOffset);
+  console.log(header.offsetTop);
+
+  if (window.pageYOffset > 100) {
+    left_menu.classList.add('sticky');
+    
+  } else {
+    left_menu.classList.remove('sticky');
+    
+  }
+}
 
 
 

@@ -27,6 +27,7 @@ html {
   background-color: black;
 
   max-width: 1000px;
+  min-width: 414px;
   max-height: fit-content;
 
   display: flex;
@@ -51,24 +52,12 @@ html {
   flex-grow: 4;
 }
 
+.top_menu_responsive {
+  display: none;
+}
+
 /* Navigation https://codepen.io/ryanmorr/pen/LVzYmx/ */
 /*.header*/ 
-
-.nav {
-  float: center;
-}
-
-.nav {
-  -width: 550px;
-  -margin: 50px auto 0 auto;
-  text-align: center;
-}
-
-.nav {
-  font-family: Georgia, Arial, sans-serif;
-  font-size: 14px;
-}
-
 .nav-items {
   padding: 0;
   list-style: none;
@@ -129,6 +118,7 @@ html {
   display: flex;
 
   align-items: center;
+
 }
 
 /*style for left menu*/
@@ -147,6 +137,12 @@ html {
   flex-direction: column;
   align-items: flex-end;
 
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 select {
@@ -229,7 +225,7 @@ input[type="text"] {
 .game_wrapper {
   background-color: black;
   color:white;
-  font-size: 18px;
+  font-size: 1.5vw;
   width: 45%;
 }
 
@@ -261,21 +257,59 @@ input[type="text"] {
   width: 80%;
 }
 
-/*@media screen and (max-width: 600px) {
-  .header .search-container {
-    float: none;
-  }
-  .header input[type="text"],
-  .header .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .header input[type="text"] {
-    border: 1px solid #ccc;
-  }
+/*style for responsive*/
+@media screen and (max-width: 414px) {
+
+.header {
+  display: block;
 }
-*/
+
+  /*style for top menu*/
+.top_menu {
+  display: none
+}
+
+.top_menu_responsive {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: block;
+  width: 100%;
+}
+
+/*style for left menu*/
+.left_menu {
+  width: 100%;
+}
+
+#genres_list  {
+  width: 100%;
+}
+
+#tags_list {
+  width: 100%;
+}
+
+select {
+  width: 100%;
+}
+
+.search_box {
+  width: 100%;
+}
+
+#search_query {
+  width: 100%;
+}
+
+#search_button {
+  width: 100%;
+}
+
+.game_wrapper {
+  width: 100%;
+}
+
+}
