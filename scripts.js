@@ -356,25 +356,19 @@ function getAppId(q) {
   return (window.location.search.match(new RegExp('[?&]' + q + '=([^&]+)')) || [, null])[1];
 }
 
-window.onscroll = function() {myFunction()};
-      
-let header = document.getElementsByClassName("header");
-let left_menu = document.getElementsByClassName("left_menu");
-let sticky = header.offsetTop;
-
-function myFunction() {
+function toggleLogo() {
+  var x = document.getElementById("myTopnav");
   
-  console.log(window.pageYOffset);
-  console.log(header.offsetTop);
-
-  if (window.pageYOffset > 100) {
-    left_menu.classList.add('sticky');
-    
+  if (x.className === "top_menu_responsive on") {
+    x.className = "top_menu_responsive off";
+    console.log(x.className);
   } else {
-    left_menu.classList.remove('sticky');
-    
+    x.className = "top_menu_responsive on";
+    console.log(x.className);
   }
 }
+
+
 
 
 

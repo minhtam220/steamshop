@@ -26,8 +26,7 @@ html {
 .header {
   background-color: black;
 
-  max-width: 1000px;
-  min-width: 414px;
+  max-width: 1280px;
   max-height: fit-content;
 
   display: flex;
@@ -52,8 +51,21 @@ html {
   flex-grow: 4;
 }
 
+.top_menu_responsive_logo {
+  display: none;
+  background-color: white;
+
+}
+
+.top_menu_responsive_logo  img{
+  height: 36px;
+}
+
+
 .top_menu_responsive {
   display: none;
+  background-color: black;
+  padding:10px;
 }
 
 /* Navigation https://codepen.io/ryanmorr/pen/LVzYmx/ */
@@ -113,7 +125,7 @@ html {
 .content {
   background-color: #c6d4df;
 
-  max-width: 1000px;
+  max-width: 1280px;
 
   display: flex;
 
@@ -261,17 +273,35 @@ input[type="text"] {
 @media screen and (max-width: 414px) {
 
 .header {
-  display: block;
+  display: flex;
 }
 
-  /*style for top menu*/
+/*style for logo*/
+.logo {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+/*style for top menu*/
 .top_menu {
-  display: none
+  display: none;
 }
 
-.top_menu_responsive {
+.top_menu_responsive_logo {
+  display: block;
+  background-color: white;
+  flex-grow: 8;
+  padding: 10px;
+  max-width: fit-content;
+}
+
+.top_menu_responsive.on {
   display: flex;
   flex-direction: column;
+}
+
+.top_menu_responsive.off {
+  display: none;
 }
 
 .content {
@@ -310,6 +340,29 @@ select {
 
 .game_wrapper {
   width: 100%;
+}
+
+.game_wrapper {
+  font-size: 6vw;
+  display: block;
+  text-align:center;
+}
+
+.game_wrapper img {
+  width: 100%;
+}
+
+.game_info {
+  width: 100%;
+  display:block;
+}
+
+.game_name {
+  padding: 5px;
+}
+
+.game_price {
+  padding: 5px;
 }
 
 }

@@ -12,6 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
@@ -44,26 +45,23 @@
         </ul>
       </div>
 
-      <div class="top_menu_responsive">  
-        <ul class="nav-items">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link"><span>STORE</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="index.html" class="nav-link"><span>COMMUNITY</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="index.html" class="nav-link"><span>ABOUT</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="index.html" class="nav-link"><span>SUPPORT</span></a>
-          </li>
-        </ul>
+      <div class="top_menu_responsive_logo">
+        <a href="javascript:void(0);" class="icon" onclick="toggleLogo()">
+          <img src="./top_menu_responsive_icon.png" alt=""/>
+        </a>
       </div>
-
+     
     </div>
 
     <div class="content">
+
+      <div class="top_menu_responsive off" id ="myTopnav">  
+        <a href="index.html" class="nav-link"><span>STORE</span></a>
+        <a href="index.html" class="nav-link"><span>COMMUNITY</span></a>
+        <a href="index.html" class="nav-link"><span>ABOUT</span></a>
+        <a href="index.html" class="nav-link"><span>SUPPORT</span></a>
+      </div>
+
       <div class="left_menu">
 
         <div id="genres_list"> 
