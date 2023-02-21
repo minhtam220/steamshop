@@ -19,8 +19,13 @@ let genres = [];
 let tags = [];
 
 let currentPage = 1;
-const limit = 100;
+const limit = 10;
 let total = 0;
+
+//implementing scrolling
+const sample1 = document.getElementById('sample_1');
+const sample2 = document.getElementById('sample_2');
+const loader = document.querySelector('.loader');
 
 //COMMON FUNCTIONS
 //fetch data from the URL
@@ -49,6 +54,9 @@ const init = async () => {
 
     //calling loadGenres to load tags
     loadTags();
+    
+    sample1.remove();
+    sample2.remove();
 
     //calling loadGames to load games based on current page index
     loadGames(currentPage, limit);
@@ -184,7 +192,7 @@ const showTags = (tags) => {
 const loadGames = async (page, limit) => {
 
   // show the loader
-  //showLoader();
+  showLoader();
 
   // 0.5 second later
   setTimeout(async () => {
@@ -205,10 +213,20 @@ const loadGames = async (page, limit) => {
       } catch (error) {
           console.log(error.message);
       } finally {
-          //hideLoader();
+          hideLoader();
       }
   }, 500);
 
+};
+
+// loadGames(page,limit) => hideLoader = ()
+const hideLoader = () => {
+  loader.classList.remove('show');
+};
+
+// loadGames(page,limit) => showLoader = ()
+const showLoader = () => {
+  loader.classList.add('show');
 };
 
 // loadGames(page,limit) => hasMoreGames(page, limit, total)
@@ -217,6 +235,22 @@ const hasMoreGames = (page, limit, total) => {
   const startIndex = (page - 1) * limit + 1;
   return total === 0 || startIndex < total;
 };
+
+window.addEventListener('scroll', () => {
+  const {
+      scrollTop,
+      scrollHeight,
+      clientHeight
+  } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5 &&
+      hasMoreGames(currentPage, limit, total)) {
+      currentPage++;
+      loadGames(currentPage, limit);
+  }
+}, {
+  passive: true
+});
 
 // loadGames(page,limit) => getGames(page,limit)
 // get games based on current page index, 
@@ -263,6 +297,12 @@ const showGames = (games) => {
 
   viewURL = viewURL.replace("index.html","view.html");
 
+  console.log(loader);
+  
+  loader.remove();
+
+  console.log(allGamesList);
+
   games.forEach((game, index) => {
     //Create new `Game Wrapper` for each element
     let divGameWrapper = document.createElement("div");
@@ -278,8 +318,12 @@ const showGames = (games) => {
 
     allGamesList.appendChild(divGameWrapper);
   });
+
+  allGamesList.appendChild(loader);
   
 };
+
+
 
 //selectGenre () => loadGames(currentPage, limit)
 function selectGenre () {
