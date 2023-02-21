@@ -19,14 +19,12 @@ let genres = [];
 let tags = [];
 
 let currentPage = 1;
-const limit = 10;
+const limit = 100;
 let total = 0;
 
 //COMMON FUNCTIONS
 //fetch data from the URL
 async function fetchData(url) {
-
-  console.log("fetchData " + url);
 
   try {
     const response = await fetch(`${url}`);
@@ -64,14 +62,9 @@ const init = async () => {
 // load genres
 const loadGenres = async () => {
 
-  // show the loader
-  //showLoader();
-
   // 0.5 second later
   setTimeout(async () => {
       try {
-
-        console.log("loading Genres");
 
         // call the API to get games
         const response = await getGenres();
@@ -82,8 +75,6 @@ const loadGenres = async () => {
       } catch (error) {
           console.log(error.message);
       } finally {
-
-        console.log("loaded Genres");
 
         //hideLoader();
 
@@ -125,19 +116,13 @@ const showGenres = (genres) => {
   
 };
 
-
 // init() => loadTags()
 // load tags
 const loadTags = async () => {
 
-  // show the loader
-  //showLoader();
-
   // 0.5 second later
   setTimeout(async () => {
       try {
-
-        console.log("loading Tags");
 
         // call the API to get games
         const response = await getTags();
@@ -149,7 +134,7 @@ const loadTags = async () => {
           console.log(error.message);
       } finally {
 
-        console.log("loaded Tags");
+        
 
         //hideLoader();
 
@@ -192,13 +177,14 @@ const showTags = (tags) => {
 };
 
 // init() => loadGames(currentPage, limit)
+// selectGenre () => loadGames(currentPage, limit)
+// selectTag () => loadGames(currentPage, limit)
+// selectSearch () => loadGames(currentPage, limit)
 // load games based on current page index
 const loadGames = async (page, limit) => {
 
   // show the loader
   //showLoader();
-
-  console.log("show loader");
 
   // 0.5 second later
   setTimeout(async () => {
@@ -214,8 +200,6 @@ const loadGames = async (page, limit) => {
 
               // update the total
               total = response.total;
-
-              console.log(total);
 
           }
       } catch (error) {
@@ -261,6 +245,8 @@ const getGames = async(page,limit) => {
 
   searchParam.append("limit",limit);
 
+  console.log(url + searchParam.toString());
+
   const response = await fetchData(url + searchParam.toString());
 
   return response;
@@ -295,11 +281,43 @@ const showGames = (games) => {
   
 };
 
-//select genre
+//selectGenre () => loadGames(currentPage, limit)
 function selectGenre () {
   
   let e = document.getElementById("select_genre");
   genreSelected = e.options[e.selectedIndex].text;
+
+  allGamesList.innerHTML = '';
+
+  currentPage = 1;
+  total = 0;
+
+  loadGames(currentPage, limit);
+
+};
+
+//selectTag () => loadGames(currentPage, limit)
+function selectTag () {
+  
+  let e = document.getElementById("select_tag");
+  tagSelected = e.options[e.selectedIndex].text;
+
+  allGamesList.innerHTML = '';
+
+  currentPage = 1;
+  total = 0;
+
+  loadGames(currentPage, limit);
+
+};
+
+//selectSearch () => loadGames(currentPage, limit)
+function selectSearch () {
+
+  let e = document.getElementById("search_query");
+  search = e.value;
+
+  allGamesList.innerHTML = '';
 
   currentPage = 1;
   total = 0;
@@ -310,180 +328,6 @@ function selectGenre () {
 
 
 //OLD CODES
-
-
-//get the tags list
-async function getAllTags() {
-  
-  let TAGS_URL = BASE_URL + `/steamspy-tags/?`;
-
-  const searchParam = new URLSearchParams(`?`);
-
-  let tags = [];
-
-  let data = [];
-  
-  let pageIndex = 1;
-
-  const dataLimit = 100;
-
-  let dataLength = 101;
-
-  while (dataLength > 99 ) {
-
-    searchParam.append("page",pageIndex);
-
-    searchParam.append("limit",dataLimit);
-
-    data = await fetchData(TAGS_URL + searchParam.toString());
-
-    dataLength = data.length;
-
-    tags = tags.concat(data);
-
-    pageIndex = pageIndex + 1;
-
-    searchParam.delete("page");
-
-    searchParam.delete("limit");
-
-  }
-
-  return tags;
-}
-
-//select tag
-function selectTag () {
-  
-  let e = document.getElementById("select_tag");
-  tagSelected = e.options[e.selectedIndex].text;
-
-  renderGames();
-  
-};
-
-//select search
-function selectSearch () {
-
-  let e = document.getElementById("search_query");
-  search = e.value;
-
-  renderGames();  
-
-};
-
-//search for games
-async function searchGames() {
-
-  let url = BASE_URL + `/games/?`;
-  
-  const searchParam = new URLSearchParams(`?`);
-
-  console.log("search = "+ search);
-  console.log("genre = " + genreSelected);
-  console.log("tag = " + tagSelected);
-  console.log("searchParam" + searchParam);
-
-  if (search !== ""){
-    searchParam.append("q",search);
-  } 
-  
-  if (genreSelected !== ""){
-    searchParam.append("genres",genreSelected);
-  } 
-
-  if (tagSelected !== ""){
-    searchParam.append("steamspy_tags",tagSelected);
-  }
-
-  let games = [];
-
-  let data = [];
-  
-  let pageIndex = 1;
-
-  const dataLimit = 100;
-
-  let dataLength = 101;
-
-  while (pageIndex < 3) {
-
-    searchParam.append("page",pageIndex);
-
-    searchParam.append("limit",dataLimit);
-
-    data = await fetchData(url + searchParam.toString());
-
-    dataLength = data.length;
-
-    games = games.concat(data);
-
-    pageIndex = pageIndex + 1;
-
-    searchParam.delete("page");
-
-    searchParam.delete("limit");
-
-  }
-
-  console.log(games.length);
-
-  return games;
-
-}
-
-//render games 
-const renderGames = async () => {
-   
-  games = [];
-
-  try {
-    // Search games from the API
-    games = await searchGames();
-
-    let allGamesList = document.getElementById("games_list");
-
-    // ' len is zero
-    if (!games.length) {
-      
-      allGamesList.innerHTML = "No games";
-
-      //return;
-
-    } else {
-
-      allGamesList.innerHTML = "";
-  
-      console.log("hostname " + window.location.hostname);
-      console.log("pathname " + window.location.pathname);
-      console.log("href " + window.location.href);
-
-      let viewURL =  window.location.href.toString();
-
-      viewURL = viewURL.replace("index.html","view.html");
-
-      games.forEach((game, index) => {
-        //Create new `Game Wrapper` for each element
-        let divGameWrapper = document.createElement("div");
-        divGameWrapper.className = "game_wrapper";
-        divGameWrapper.innerHTML = ` 
-            <a href="${viewURL}?appid=${game.appid}" target="_blank"><img
-            src="${game.header_image}"/></a>
-            <div class="game_info">
-              <div class="game_name">${game.name}</div>
-              <div class="game_price">$ ${game.price}</div>
-            </div>
-            `;
-  
-        allGamesList.appendChild(divGameWrapper);
-      });
-    };
-
-  } catch (err) {
-    console.log("err", err);
-  }
-};
-
 
 //view single game by app id
 async function viewSingleGame(appidParam) {

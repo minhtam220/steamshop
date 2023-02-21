@@ -27,6 +27,7 @@ html {
   background-color: black;
 
   max-width: 1280px;
+  margin: 0 auto;
   max-height: fit-content;
 
   display: flex;
@@ -126,6 +127,7 @@ html {
   background-color: #c6d4df;
 
   max-width: 1280px;
+  margin: 0 auto;
 
   display: flex;
 
