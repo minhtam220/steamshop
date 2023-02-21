@@ -374,18 +374,18 @@ function selectSearch () {
 //OLD CODES
 
 //view single game by app id
-async function viewSingleGame(appidParam) {
+async function getSingleGame(appidParam) {
 
   let url = BASE_URL + `/single-game/` + appidParam;
 
-  let game = await fetchData(url);
+  let response = await fetchData(url);
 
-  return game;
+  return response;
 
 }
 
 //render games 
-const renderSingleGame = async () => {
+const viewSingleGame = async () => {
    
   game = [];
 
@@ -393,8 +393,8 @@ const renderSingleGame = async () => {
 
   try {
     // Search games from the API
-    game = await viewSingleGame(appid);
-
+    let response = await getSingleGame(appid);
+    game = response.data;
     let singleGameList = document.getElementById("single_game");
 
     singleGameList.innerHTML = ``;
