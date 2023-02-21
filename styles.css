@@ -289,7 +289,7 @@ input[type="text"] {
 
 .top_menu_responsive_logo {
   display: block;
-  background-color: white;
+  background-color: black;
   flex-grow: 8;
   padding: 10px;
   max-width: fit-content;
