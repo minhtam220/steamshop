@@ -30,6 +30,7 @@ html {
   max-height: fit-content;
   display: flex;
   align-items: center;
+  height: 60px;
 }
 
 /*style for logo*/
@@ -124,6 +125,7 @@ html {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  height: calc(100vh - 60px);
 }
 
 /*style for left menu*/
@@ -131,12 +133,16 @@ html {
   font-family: Georgia, Arial, sans-serif;
   font-size: 14px;
   color: black;
-  flex-grow: 1; 
+  /* flex-grow: 1;  */
   align-self: flex-start;
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+body {
+  height: 100vh
 }
 
 .sticky {
@@ -251,7 +257,8 @@ input[type="text"] {
   row-gap: 10px;
   column-gap: 10px;;
   /*margin-right:20%;*/
-  
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .game_wrapper {
@@ -325,7 +332,6 @@ input[type="text"] {
 }
 
 .content {
-  display: block;
   width: 100%;
 }
 
