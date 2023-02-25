@@ -76,6 +76,7 @@ const init = async () => {
         passive: true,
       }
     );
+
   } catch (err) {
     console.log('err', err);
   }
@@ -84,20 +85,17 @@ const init = async () => {
 // init() => loadGenres()
 // load genres
 const loadGenres = async () => {
-  // 0.5 second later
-  setTimeout(async () => {
-    try {
-      // call the API to get games
-      const response = await getGenres();
+  
+  try {
+    // call the API to get games
+    const response = await getGenres();
 
-      // show games
-      showGenres(response.data);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      //hideLoader();
-    }
-  }, 500);
+    // show games
+    showGenres(response.data);
+  } catch (error) {
+    console.log(error.message);
+  } 
+  
 };
 
 // loadGenres(page,limit) => getGenres(page,limit)
@@ -132,20 +130,17 @@ const showGenres = (genres) => {
 // init() => loadTags()
 // load tags
 const loadTags = async () => {
-  // 0.5 second later
-  setTimeout(async () => {
-    try {
-      // call the API to get games
-      const response = await getTags();
+  
+  try {
+    // call the API to get games
+    const response = await getTags();
 
-      // show games
-      showTags(response.data);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      //hideLoader();
-    }
-  }, 500);
+    // show games
+    showTags(response.data);
+  } catch (error) {
+    console.log(error.message);
+  } 
+
 };
 
 // loadTags(page,limit) => getTags()
